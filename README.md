@@ -1,4 +1,4 @@
-# week7-CRaKT
+# Week8-BFOP
 
 ### INTRO
 
@@ -25,19 +25,19 @@ Project build as a part of Founders and Coders FAC19.
 
 ### Stack
 
--   JavaScript
--   Node
--   Express
--   PostgreSQL
+- JavaScript
+- Node
+- Express
+- PostgreSQL
 
 ### User Stories
+- As an API user, I want to: get a list of all available resources
+- As an API user, I want to: get all the information on a specific resource
+- As an API user, I want to: create a new resource
+- As an API user, I want to: update an existing resource
+- As an API user, I want to: delete an existing resource
+- As an API user, I want to: only be able to change an existing resource if I am authenticated to do so
 
--   As an API user, I want to: get a list of all available resources
--   As an API user, I want to: get all the information on a specific resource
--   As an API user, I want to: create a new resource
--   As an API user, I want to: update an existing resource
--   As an API user, I want to: delete an existing resource
--   As an API user, I want to: only be able to change an existing resource if I am authenticated to do so
 
 ### Database Schema
 
@@ -69,23 +69,28 @@ CREATE TABLE examples
 1. Clone repo
 2. cd into folder
 3. Run NPM install
-4. If you already have an existing SUPERUSER create a local production psql data base and assign it to that user.
-    ```sql
-    CREATE DATABASE local_production_database_name WITH OWNER your_user;
-    ```
+4. If you already have an existing SUPERUSER
+create a local production psql data base and assign it to that user.
+   ```sql
+   CREATE DATABASE local_production_database_name WITH OWNER your_user;
+   ```
+   
+  OTHERWISE change your user to a superuser
+ ```sql ALTER USER your_user WITH SUPERUSER ```
 
-OTHERWISE change your user to a superuser `sql ALTER USER your_user WITH SUPERUSER`
-
+  
 5. Create a test database called localtest with the same owner/user
-    ```sql
-    CREATE DATABASE localtest WITH OWNER your_user;
-    ```
+   ```sql
+   CREATE DATABASE localtest WITH OWNER your_user;
+   ```
 6. Create an .env file in the project's root folder
-    - PGDATABASE=local_production_database_name
-    - PGUSER=your_user
-    - PGPASSWORD=your_password
-    - SECRET=JWTSECRET You can choose a secret of your choice.
-7. npm run setupdb Alternatively import db/init.sql in your preferred db admin tool
+   - PGDATABASE=local_production_database_name
+   - PGUSER=your_user
+   - PGPASSWORD=your_password
+   - SECRET=JWTSECRET
+   You can choose a secret of your choice.
+7. npm run setupdb
+   Alternatively import db/init.sql in your preferred db admin tool
 
 ### Running the server
 
@@ -100,12 +105,11 @@ OTHERWISE change your user to a superuser `sql ALTER USER your_user WITH SUPERUS
 ### Example users and passwords
 
 There are five default users, their email addresses are.
-
--   admin@iscool.com
--   tom@iscool.com
--   chloe@iscool.com
--   kat@iscool.com
--   roger@iscool.com
+- admin@iscool.com
+- tom@iscool.com
+- chloe@iscool.com
+- kat@iscool.com
+- roger@iscool.com
 
 Their passwords are, unsurprisingly, 'password'.
 
@@ -127,13 +131,14 @@ Send a post request to path above using raw json request. Example below:
 
 ```json
 {
-    "username": "Peter Pumpernicke;",
-    "email": "peter@iscool.com",
-    "password": "password"
+  "username": "Peter Pumpernicke;",
+  "email": "peter@iscool.com",
+  "password": "password"
 }
 ```
 
-If successful, user object is returned. If user already exists, error will be returned.
+If successful, user object is returned.
+If user already exists, error will be returned.
 
 ### Login as user
 
@@ -143,12 +148,13 @@ Send a post request to path above using raw json request. Example below:
 
 ```json
 {
-    "email": "registered_email_address",
-    "password": "your_password"
+  "email": "registered_email_address",
+  "password": "your_password"
 }
 ```
 
-If successful, token object is returned. YOU WILL NEED THIS TOKEN TO ADD OR DELETE EXAMPLES! If email or password are incorrect, error will be returned.
+If successful, token object is returned. YOU WILL NEED THIS TOKEN TO ADD OR DELETE EXAMPLES!
+If email or password are incorrect, error will be returned.
 
 ### Get example with a specified ID
 
@@ -170,9 +176,9 @@ You can use postman or similar tool. Request must be sent with AUTHORIZATION bea
 
 ```json
 {
-    "language": "js",
-    "title": "enter_title_here",
-    "example": "code_cnippet_example_here"
+  "language": "js",
+  "title": "enter_title_here",
+  "example": "code_cnippet_example_here"
 }
 ```
 
@@ -188,7 +194,7 @@ If successfull you will receive a json object as below:
 
 ```json
 {
-    "deleted": true
+  "deleted": true
 }
 ```
 
@@ -206,13 +212,14 @@ Request needs to be sent using raw json format as below:
 
 ```json
 {
-    "language": "value to update",
-    "title": "value to update",
-    "example": "value to update"
+  "language": "value to update",
+  "title": "value to update",
+  "example": "value to update"
 }
 ```
 
 You only need to include the fields you want to update. Omitted fields will remain unchanged,
+
 
 ### Search by keyword and filter by language example
 
@@ -220,25 +227,28 @@ You only need to include the fields you want to update. Omitted fields will rema
 
 We sadly didn't get that far but lookout for this feature in the next version!
 
+
 ### Project Acceptance Criteria
 
--   [x] An Express server that only returns JSON
+- [x] An Express server that only returns JSON
 
--   [x] A Postgres database to store the data
+- [x] A Postgres database to store the data
 
--   [x] Endpoints for creating, reading, updating & deleting resources
+- [x] Endpoints for creating, reading, updating & deleting resources
 
--   [x] Token-based authentication so only the owner of a resource can change it
+- [x] Token-based authentication so only the owner of a resource can change it
 
--   [x] Correct headers and response metadata (we think)
+- [x] Correct headers and response metadata (we think)
 
--   [x] Error-handling to make it easy to use the API to build something
+- [x] Error-handling to make it easy to use the API to build something
 
--   [x] Tests for server routes and database access
+- [x] Tests for server routes and database access
 
--   [x] Not process user input as SQL commands
+- [x] Not process user input as SQL commands
 
--   [x] Hidden environment variables (i.e. not on GitHub)
+- [x] Hidden environment variables (i.e. not on GitHub)
+
+
 
 ### The end
 
