@@ -1,35 +1,37 @@
 {
-  "name": "Week8-BFOP",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "PGDATABASE=localtest tape tests/*.test.js | tap-spec",
-    "dev": "nodemon server.js",
-    "setupdb": "node db/build.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fac19/Week8-BFOP"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/fac19/Week8-BFOP/issues"
-  },
-  "homepage": "https://github.com/fac19/Week8-BFOP#readme",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "ci": "^1.0.0",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "pg": "^8.0.2"
-  },
-  "devDependencies": {
-    "tap-spec": "^5.0.0",
-    "supertest": "^4.0.2",
-    "tape": "^4.13.2",
-    "nodemon": "^2.0.3"
-  }
+    "name": "week7-crakt",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "PGDATABASE=localtest tape tests/*.test.js | tap-spec",
+        "dev": "nodemon server.js",
+        "setupdb": "node db/build.js",
+        "format": "prettier --write '**/*.{js,css,md}'"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/fac19/week7-CRaKT.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/fac19/week7-CRaKT/issues"
+    },
+    "homepage": "https://github.com/fac19/week7-CRaKT#readme",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "ci": "^1.0.0",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "jsonwebtoken": "^8.5.1",
+        "pg": "^8.0.2"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.3",
+        "prettier": "^2.0.4",
+        "supertest": "^4.0.2",
+        "tap-spec": "^5.0.0",
+        "tape": "^4.13.2"
+    }
 }
