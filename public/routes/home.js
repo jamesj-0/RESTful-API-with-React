@@ -8,8 +8,16 @@ const loggedIn = `
 `;
 
 const loggedOut = `
-<button class="log-in">Log In</button>
-<button class="sign-up">Sign Up</button>
+<button class="log-in">
+    <a href='/log-in'>
+    Log In
+    </a>
+</button>
+<button class="sign-up">
+    <a href='/sign-up'>
+    Sign Up
+    </a>
+</button>
 `;
 
 const allCode = `
