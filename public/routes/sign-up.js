@@ -1,6 +1,6 @@
 import query from "../query.js";
 
-const app = document.getElementById("app");
+const app = document.querySelector('#wrapper');
 
 const signUpPage = /*html*/`
     <form>
@@ -15,7 +15,7 @@ const signUpPage = /*html*/`
     </form>
 `
 
-function signUp(req){
+function signUp( req ){
     app.innerHTML = signUpPage;
     const form = document.querySelector("form");
     form.addEventListener("submit", event => {

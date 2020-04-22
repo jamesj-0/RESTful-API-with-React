@@ -15,7 +15,7 @@ test("Route tests are running!", t => {
 test("Test main route returns 200", t => {
     build().then(() => {
         supertest(server)
-            .get("/")
+            .get("/all")
             .expect(200)
             .expect("content-type", "application/json; charset=utf-8")
             .end((err, res) => {
