@@ -14,6 +14,10 @@ function writeToNav(params) {
 
 function writeToWrapper() {
     // get db and display anything returned or first 10 things returned
-    wrapper.innerHTML = 
+    wrapper.innerHTML = `
+    <h1>Home</h1> 
+    <a href="/sign-up">Create an account</a>
+    `;
+
 }
 export default home;
