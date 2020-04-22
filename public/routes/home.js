@@ -50,7 +50,7 @@ function createListItem(code) {
 
 function writeToWrapper() {
     wrapper.innerHTML = allCode;
-    query("https://snippetsofcode.herokuapp.com/")
+    query("/all")
         .then(json => {
             const codeSnippets = json.map(code => createListItem(code));
             wrapper.querySelector("ul").append(...codeSnippets);
