@@ -6,4 +6,4 @@ const db = require("../db/connection");
 test("Close DB", t => {
     db.end();
     t.end();
-})
+});
