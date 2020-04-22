@@ -2,7 +2,7 @@
 
 ### INTRO
 
-Project live at https://crakt.herokuapp.com/
+Project live at https://snippetsofcode.herokuapp.com/
 
 REST API returning JSON data with endpoints for creating, reading, updating and deleting stored resources.
 
