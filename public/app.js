@@ -1,6 +1,6 @@
 import router from "./router.js";
 import home from ""
-import signUp from ""
+import signUp from "./routes/sign-up.js"
 import logIn from ""
 import createExample from ""
 import updateExample from ""
