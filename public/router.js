@@ -17,6 +17,11 @@ function navigate(url){
     callback({ url: parsedUrl, redirect });
 }
 
+function redirect(path){
+    const url = window.location.origin + path; 
+    window.history.pushState(null, null, url);
+    navigate(url); 
+}
 
 function handleClick(event){
     if("external" in event.target.dataset ||

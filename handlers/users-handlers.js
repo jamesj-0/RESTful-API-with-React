@@ -43,14 +43,22 @@ function signup(req, res, next) {
                         }
                     );
                     res.status(201).send({
+                        user_id: userID,
                         username: newUserName,
                         email: newUserEmail,
                         token: token
                     });
                 })
-                .catch(next);
+                .catch( err => {
+                    res.status(401).send({
+                        error: "Could not sign up with those credentials, that email may already exist",
+                        msg: err.message
+                    }); 
+                }
+
+                );
         })
-        .catch(console.error);
+        .catch(next);
 }
 // login function
 // IMPROVEMENTS
@@ -70,6 +78,7 @@ function login(req, res, next) {
                     expiresIn: "24h"
                 });
                 res.send({
+                    user_id: dbUser.id,
                     token: token
                 });
             });
