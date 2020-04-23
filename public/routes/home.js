@@ -4,7 +4,13 @@ const wrapper = document.querySelector("#wrapper");
 const nav = document.querySelector("#navigation");
 
 const loggedIn = `
-<button id="log-out">Log Out</button>
+<button id="log-out">
+    <a>
+        Log Out
+    </a>
+</button>
+
+<button class="link"><a href="post">Create new post</a></button>
 `;
 
 const loggedOut = `
@@ -72,7 +78,7 @@ function createListItem(code, userId) {
     const editButton = document.createElement("button");
     editButton.dataset.postid = code.id;
     editButton.append("Edit");
-    
+
     if (userId == code.owner_id) {
         li.append(title, language, example, deleteButton, editButton);
     } else {
