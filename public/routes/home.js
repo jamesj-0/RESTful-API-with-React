@@ -34,13 +34,14 @@ function home({redirect}) {
 
 function writeToNav(redirect) {
     // check auth token and display accordingly
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("access-token");
+    console.log("token", token)
     // console.log('token ', !!token, token === 'undefined', typeof token)
     if (token === "undefined" || !token) {
         nav.innerHTML = loggedOut;
     } else {
         nav.innerHTML = loggedIn;
-        nav.querySelector("#log-out").addEventListener("click", () => {
+        nav.querySelector(".log-out").addEventListener("click", () => {
             localStorage.removeItem("token");
             redirect("/");
         });

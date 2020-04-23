@@ -1,6 +1,26 @@
 # Week8-BFOP
 
-### INTRO
+- [Week8-BFOP](#week8-bfop)
+  - [INTRO](#intro)
+  - [Stack](#stack)
+  - [User Stories](#user-stories)
+  - [Database Schema](#database-schema)
+  - [Local Installation](#local-installation)
+    - [Search by keyword and filter by language example](#search-by-keyword-and-filter-by-language-example)
+    - [Project Acceptance Criteria](#project-acceptance-criteria)
+- [The end](#the-end)
+
+- [Week8-BFOP](#week8-bfop)
+  - [INTRO](#intro)
+  - [Stack](#stack)
+  - [User Stories](#user-stories)
+  - [Database Schema](#database-schema)
+  - [Local Installation](#local-installation)
+    - [Search by keyword and filter by language example](#search-by-keyword-and-filter-by-language-example)
+    - [Project Acceptance Criteria](#project-acceptance-criteria)
+- [The end](#the-end)
+
+## INTRO
 
 Project live at https://snippetsofcode.herokuapp.com/
 
@@ -23,14 +43,14 @@ Purpose of this API is to create a a database of useful and easily accessible co
 
 Project build as a part of Founders and Coders FAC19.
 
-### Stack
+## Stack
 
 - JavaScript
 - Node
 - Express
 - PostgreSQL
 
-### User Stories
+## User Stories
 - As an API user, I want to: get a list of all available resources
 - As an API user, I want to: get all the information on a specific resource
 - As an API user, I want to: create a new resource
@@ -39,7 +59,7 @@ Project build as a part of Founders and Coders FAC19.
 - As an API user, I want to: only be able to change an existing resource if I am authenticated to do so
 
 
-### Database Schema
+## Database Schema
 
 ```sql
 
@@ -64,7 +84,7 @@ CREATE TABLE examples
 
 ```
 
-### Local Installation
+## Local Installation
 
 1. Clone repo
 2. cd into folder
@@ -92,17 +112,20 @@ create a local production psql data base and assign it to that user.
 7. npm run setupdb
    Alternatively import db/init.sql in your preferred db admin tool
 
+
 ### Running the server
 
     `npm run dev` to run for development purposes
 
     OR `node server.js` to run server in production mode
 
+
 ### Running tests
 
 `npm run test`
 
-### Example users and passwords
+
+## Example users and passwords
 
 There are five default users, their email addresses are.
 - admin@iscool.com
@@ -115,9 +138,10 @@ Their passwords are, unsurprisingly, 'password'.
 
 The admin account is special. It can delete anyone's posts, other users can only delete their own.
 
-# Using the API
+## Using the API
+Find API docs here.
 
-### Get all examples (return json all all stored objects)
+### Get all examples and return json all all stored objects
 
 `Get /`
 
@@ -250,7 +274,7 @@ We sadly didn't get that far but lookout for this feature in the next version!
 
 
 
-### The end
+# The end
 
 Hope you read it and it made sense! It took me whole bloody morning. If it didn't make sense please let me know what could be made for better readability.
 
