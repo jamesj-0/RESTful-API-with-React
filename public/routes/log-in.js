@@ -13,7 +13,7 @@ const logInPage = `
     </form>
 `
 
-function logIn() {
+function logIn({redirect}) {
   app.innerHTML = logInPage;
   const form = document.querySelector("form");
   form.addEventListener("submit", (event) => {
@@ -26,14 +26,11 @@ function logIn() {
       "method": "POST"
     })
     .then((userInfo) => {console.log(userInfo)
-      console.log(userInfo)
-      localStorage.setItem('user_id', userInfo.user_id)
-      localStorage.setItem('token', userInfo.token)
-      console.log(localStorage.getItem('user_id'));
-      console.log(localStorage.getItem('token'))
+      localStorage.setItem('user-id', userInfo.user_id)
+      localStorage.setItem('access-token', userInfo.token)
+      console.log(redirect)
+      redirect("/")
     }
-    /* TODO: add token to local storage, redirect */
-    /* Get user id too */
     )
     .catch((err) => {
       console.error(err);

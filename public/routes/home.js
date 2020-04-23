@@ -3,6 +3,7 @@ import query from "../query.js";
 const wrapper = document.querySelector("#wrapper");
 const nav = document.querySelector("#navigation");
 
+
 const loggedIn = `
 <button class="log-out">Log Out</button>
 `;
