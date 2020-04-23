@@ -27,7 +27,6 @@ const allCode = `
 `;
 
 function home({redirect}) {
-    console.log("home called");
     
     writeToNav(redirect);
     writeToWrapper();
@@ -52,7 +51,9 @@ function createListItem(code, userId) {
     const li = document.createElement("li");
     const title = document.createElement("h2");
     title.append(code.title);
-    const language = document.createElement("h3");
+    const name = document.createElement("h3")
+    name.append(code.username);
+    const language = document.createElement("h4");
     language.append(code.language);
     const example = document.createElement("p");
     example.append(code.example);
@@ -63,9 +64,9 @@ function createListItem(code, userId) {
     editButton.dataset.postid = code.id;
     editButton.append('Edit');
     if(userId == code.owner_id){
-        li.append(title, language, example, deleteButton, editButton);
+        li.append(title, name, language, example, deleteButton, editButton);
     } else {
-        li.append(title, language, example);
+        li.append(title, name, language, example);
     }
     return li;
 }
@@ -86,8 +87,3 @@ function writeToWrapper() {
 }
 
 export default home;
-
-
-// wrapper.querySelector('.delete-button').addEventListener('click', (event) => {
-//     console.log(event.target)
-// })

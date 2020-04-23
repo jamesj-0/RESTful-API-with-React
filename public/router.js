@@ -12,7 +12,6 @@ function redirect(path){
 }
 
 function navigate(url){
-    console.log("THE URL IS:", url)
     const parsedUrl = new URL(url); 
     const basePath = parsedUrl.pathname.split("?")[0];
     const callback = routes[basePath] ||  routes.default;
@@ -47,8 +46,7 @@ function handleClick(event){
             const postId = Number(event.target.dataset.postid);
             if(isNaN(postId)) throw new Error ("That's not a post ID chump!");
             if(buttonName === "Edit"){ redirect(`/post?edit=${postId}`); }
-            if(buttonName === "Delete"){
-            }
+            if(buttonName === "Delete"){ redirect(`/delete?delete=${postId}`)}
         }
     }
 }
