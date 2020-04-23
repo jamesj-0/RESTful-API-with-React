@@ -58,9 +58,9 @@ function createListItem(code, userId) {
     example.append(code.example);
     if(userId == code.owner_id){
     const deleteButton = document.createElement("button");
-    deleteButton.append('&#128465');
+    deleteButton.append('&#128465;');
     const editButton = document.createElement("button");
-    editButton.append('&#9998');
+    editButton.append('&#9998;');
     return li.append(title, language, example, deleteButton, editButton);
     }
     li.append(title, language, example);
