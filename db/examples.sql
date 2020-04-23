@@ -16,7 +16,7 @@ function fetchSomething(searchString, callback, errorHandler){
     .then(callback)          // we need to call the callback with the object we received
     .catch(errorHandler);    // we need to do something with any errors objects we get
 }');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Fetch helper - query', 'function query(url, options) {
+INSERT INTO examples (owner_id, language, title, example) VALUES (2, 'js', 'Fetch helper - query', 'function query(url, options) {
   return fetch(url, options).then((res) => {
     if (!res.ok) {
       const error = new Error("HTTP Error");
@@ -33,7 +33,7 @@ INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Fetc
 }
 
 export default query;');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Client fetch with POST', 'fetch("https://fac-dogs.herokuapp.com/v1/users",
+INSERT INTO examples (owner_id, language, title, example) VALUES (4, 'js', 'Client fetch with POST', 'fetch("https://fac-dogs.herokuapp.com/v1/users",
     {
         "headers" : { "content-type": "application/json" }, 
         "body": JSON.stringify(yourObjectWotYouWantedPosting),
@@ -45,12 +45,12 @@ INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Clie
         console.log("The thing we wanted:", result.whatever );
     })
     .catch( err => console.error(`Bumflaps! there was an error: ${err.message}`)');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Server in vanilla node.js', 'const http = require("http");
+INSERT INTO examples (owner_id, language, title, example) VALUES (3, 'js', 'Server in vanilla node.js', 'const http = require("http");
 const router = require("./router");
 const server = http.createServer(router);
 const port = process.env.PORT || 3000;
 server.listen(port, () => console.log(`Listening at ${port}`));');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Router function in vanilla Node.js', 'const homeHandler = require("./handlers/home");
+INSERT INTO examples (owner_id, language, title, example) VALUES (2, 'js', 'Router function in vanilla Node.js', 'const homeHandler = require("./handlers/home");
 const publicHandler = require("./handlers/public");
 const missingHandler = require("./handlers/missing");
 
@@ -66,7 +66,7 @@ function router(request, response) {
 }
 
 module.exports = router;');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Public file server handler', 'const fs = require("fs");
+INSERT INTO examples (owner_id, language, title, example) VALUES (2, 'js', 'Public file server handler', 'const fs = require("fs");
 const path = require("path");
 
 const types = {
@@ -94,7 +94,7 @@ function publicHandler(request, response) {
 }
 
 module.exports = publicHandler;');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Template cloning and populating', 'function addItem(text, checkBox){    
+INSERT INTO examples (owner_id, language, title, example) VALUES (3, 'js', 'Template cloning and populating', 'function addItem(text, checkBox){    
     let template = document.getElementById(''template'');
     let newItem = template.content.cloneNode(true);
     newItem.querySelector(".item__text") = text;
@@ -103,7 +103,7 @@ INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Temp
     itemCheckBox.addEventListener("click", checkBoxHandler);
     toDoList.appendChild(newItem);
 }');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Get ancestor container', 'function getAncestorIfItHasClass(elem, className){
+INSERT INTO examples (owner_id, language, title, example) VALUES (2, 'js', 'Get ancestor container', 'function getAncestorIfItHasClass(elem, className){
     // Takes a DOM node (typically from event.target) and recursively checks up the
     // DOM tree til it finds a node with className. It then returns that node.
     if(elem.classList.contains(className)) return elem;
@@ -120,7 +120,7 @@ INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Runn
         t.end();
     });
 });');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Running POST tests with supertest', 'test("Test POST route description" , t => {
+INSERT INTO examples (owner_id, language, title, example) VALUES (5, 'js', 'Running POST tests with supertest', 'test("Test POST route description" , t => {
     supertest(router)
     .post("/the-route-name")
     .send([''some'', ''post'', ''data'']) // some serializable javascript object
@@ -133,7 +133,7 @@ INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Runn
         t.end();
     });
 });');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Receive POST data in vanilla node', 'let data = "";
+INSERT INTO examples (owner_id, language, title, example) VALUES (3, 'js', 'Receive POST data in vanilla node', 'let data = "";
 req.on("data", dat=>data+=dat);
 req.on("error", console.error);
 req.on("end", _ =>{
@@ -170,19 +170,19 @@ INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'json', 'pa
     "dev": "nodemon workshop/server.js",
     "test": "PGDATABASE=test_node_postgres tape ''workshop/tests/*'' | tap-spec",
     "watch": "nodemon -q -x ''npm test''"');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', '/database/build', 'const fs = require("fs");
+INSERT INTO examples (owner_id, language, title, example) VALUES (2, 'js', '/database/build', 'const fs = require("fs");
 const path = require("path");
 const db = require("./connection");
 const initPath = path.join(__dirname, "init.sql");
 const initSQL = fs.readFileSync(initPath, "utf-8");
 const build = () => db.query(initSQL);
 module.exports = build;');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', '/database/connection.js', 'const pg = require("pg");
+INSERT INTO examples (owner_id, language, title, example) VALUES (2, 'js', '/database/connection.js', 'const pg = require("pg");
 const dotenv = require("dotenv");
 dotenv.config(); // load environment variables
 const db = new pg.Pool(); // create a pool of available connections
 module.exports = db; // export the pool for use elsewhere on our server');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'sql', 'example sql table definition / init.sql', 'BEGIN;
+INSERT INTO examples (owner_id, language, title, example) VALUES (5, 'sql', 'example sql table definition / init.sql', 'BEGIN;
 
 DROP TABLE IF EXISTS users, blog_posts CASCADE;
 
@@ -210,7 +210,7 @@ INSERT INTO blog_posts (text_content, user_id) VALUES
 ;
 
 COMMIT;');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Database testing with tape', 'const test = require("tape");
+INSERT INTO examples (owner_id, language, title, example) VALUES (5, 'js', 'Database testing with tape', 'const test = require("tape");
 const build = require("../database/build");
 const { getUsers, createUser, getPosts } = require("../model");
 
@@ -247,7 +247,7 @@ test("Can create a new user", t => {
         });
       });
 });');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'zzz.test.js  -  Stop the 10s timeout at the end of db tests', 'const test = require("tape");
+INSERT INTO examples (owner_id, language, title, example) VALUES (2, 'js', 'zzz.test.js  -  Stop the 10s timeout at the end of db tests', 'const test = require("tape");
 const db = require("../database/connection");
 
 test("Dummy test, just want to close db connection!", t => {
@@ -259,13 +259,13 @@ INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Gett
   const output = document.querySelector("output");
   output.textContent = "You checked: " + checked.id;
 })');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Handling uncaught promise rejections in Node', '// in server.js
+INSERT INTO examples (owner_id, language, title, example) VALUES (4, 'js', 'Handling uncaught promise rejections in Node', '// in server.js
 process.on("unhandledRejection", error => {
   console.error(error);
   process.exit(1);
 });');
 INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Checking requset method in router', '} else if (req.url === "/blog" && req.method === "GET" ) {');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'signUp.js with bcrypt', '// Run npm install bcryptjs to install the library
+INSERT INTO examples (owner_id, language, title, example) VALUES (3, 'js', 'signUp.js with bcrypt', '// Run npm install bcryptjs to install the library
 
 const bcrypt = require("bcryptjs");
 
@@ -286,7 +286,7 @@ function post(request, response) {
           `);
         })
         // .');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Log in with bcrypt', 'const bcrypt = require("bcryptjs");
+INSERT INTO examples (owner_id, language, title, example) VALUES (5, 'js', 'Log in with bcrypt', 'const bcrypt = require("bcryptjs");
 
 function post(request, response) {
   getBody(request)
@@ -305,7 +305,7 @@ function post(request, response) {
           `);
         })
         // ...');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Cookies in raw node', 'res.setHeader(''Set-Cookie'', ''logged_in=true; HttpOnly; Max-Age=9000'');
+INSERT INTO examples (owner_id, language, title, example) VALUES (5, 'js', 'Cookies in raw node', 'res.setHeader(''Set-Cookie'', ''logged_in=true; HttpOnly; Max-Age=9000'');
 // OR
 res.writeHead(200, { ''Set-Cookie'': ''logged_in=true; HttpOnly; Max-Age=9000'' });
 // OR multiple
@@ -320,7 +320,7 @@ req.headers.cookie; // ''logged_in=true''
 
 // Delting a cookie
 res.setHeader(''Set-Cookie'', ''logged_in=blah; Max-Age=0'');');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Creating a JWT in node', 'const jwt = require(''jsonwebtoken'');
+INSERT INTO examples (owner_id, language, title, example) VALUES (4, 'js', 'Creating a JWT in node', 'const jwt = require(''jsonwebtoken'');
 const secret = process.env.SECRET;
 
 claims = {
@@ -335,7 +335,7 @@ response.writeHead(
       ''Set-Cookie'': `wevs=${cookie}; HttpOnly; Max-Age=20000`
   });
 return response.end()');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Creating auth middleware to decode jwt in express for node', 'const cookieParser = require("cookie-parser");
+INSERT INTO examples (owner_id, language, title, example) VALUES (2, 'js', 'Creating auth middleware to decode jwt in express for node', 'const cookieParser = require("cookie-parser");
 server.use(cookieParser());
 
 function authUser(req, res, next) {
@@ -351,10 +351,10 @@ function authUser(req, res, next) {
 }
 
 server.use(authUser);');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'node', 'Detecting if you''re running in production or development', 'if(!process.env.NODE_ENV) {
+INSERT INTO examples (owner_id, language, title, example) VALUES (2, 'node', 'Detecting if you''re running in production or development', 'if(!process.env.NODE_ENV) {
   console.log("ERROR IN DEVELOPMENT");
   res.status(status).send(`<h1>${error.stack}</h1>`);');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Misc express.js methods', 'const cookieParser = require("cookie-parser");
+INSERT INTO examples (owner_id, language, title, example) VALUES (3, 'js', 'Misc express.js methods', 'const cookieParser = require("cookie-parser");
 server.use(express.urlencoded());
 server.use(cookieParser());
 
@@ -368,7 +368,7 @@ function randomMiddleware(req, res, next) {
   next();
 }
 server.use(randomMiddleware);');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'DB model tests', 'test("Check if getListing takes account of search term", t => {
+INSERT INTO examples (owner_id, language, title, example) VALUES (4, 'js', 'DB model tests', 'test("Check if getListing takes account of search term", t => {
   build().then( () => {
       let searchTerms = { search: "loads" };
       model.getListings(searchTerms).then( listings => {
@@ -382,7 +382,7 @@ INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'DB m
       .catch( err => {  console.log("SOMETHING''S UP!!!\n", err);   });
   })
 });');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'More DB model testing', 'test("Check if delete(1) deletes the correct thing!", t => {
+INSERT INTO examples (owner_id, language, title, example) VALUES (4, 'js', 'More DB model testing', 'test("Check if delete(1) deletes the correct thing!", t => {
   build().then( () => {
       model.deleteListing(1).then( () => {
           model.getOnlyPostsTable().then ( results => {
@@ -416,15 +416,15 @@ const dogElements = dogs.map((dog) =>{
 });
 const list = html("ul", {}, ...dogElements);
 container.append(header, list);');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'html', 'HTML data attribute', '<a href="https://example.com" data-wevs="abc">Wevs</a>
+INSERT INTO examples (owner_id, language, title, example) VALUES (2, 'html', 'HTML data attribute', '<a href="https://example.com" data-wevs="abc">Wevs</a>
 
 function handleClick(event) {
     console.log( event.target.dataset.wevs )
     console.log( "wevs" in event.target.dataset )
 }');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'js', 'Getting ALL form fields', 'const formData = new FormData(event.target);
+INSERT INTO examples (owner_id, language, title, example) VALUES (3, 'js', 'Getting ALL form fields', 'const formData = new FormData(event.target);
 const formObject = Object.fromEntries(formData);');
-INSERT INTO examples (owner_id, language, title, example) VALUES (1, 'css', 'Make a links clickable area as big as its parent wit a pseudo class', '.task-five .card {
+INSERT INTO examples (owner_id, language, title, example) VALUES (5, 'css', 'Make a links clickable area as big as its parent wit a pseudo class', '.task-five .card {
     position: relative;
 }
 .task-five .card a:after{

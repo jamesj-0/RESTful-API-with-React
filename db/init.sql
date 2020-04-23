@@ -27,9 +27,9 @@ CREATE TABLE examples
         (username, email, user_password, adminusr)
     VALUES
         ('admin', 'admin@iscool.com', '$2a$10$zH7.4s2AbH8Lz.SqsauRSOldLUacu3axD.0ZgoR2v2CJpM/pItOiy', true),
-        ('Tom', 'tom@iscool.com', '$2a$10$aHsFImUy5q1fj37Z72O6r.iUpDLL1CBH38UCaHGK25CEP5W5uyVQa', false),
-        ('Chloe', 'chloe@iscool.com', '$2a$10$QFV6woSkfTa6XhaJAYYCmu8fqkLOduWm.kDzZI56crZCTIaKzaFDy', false),
-        ('Kat', 'kat@iscool.com', '$2a$10$SSahAXMX/e.3VS0juErkceVbwwR1iL8/cWYnOD5IILyf.74EMnHr6', false),
+        ('James', 'james@iscool.com', '$2a$10$aHsFImUy5q1fj37Z72O6r.iUpDLL1CBH38UCaHGK25CEP5W5uyVQa', false),
+        ('Ivo', 'ivo@iscool.com', '$2a$10$QFV6woSkfTa6XhaJAYYCmu8fqkLOduWm.kDzZI56crZCTIaKzaFDy', false),
+        ('Cammy', 'cammy@iscool.com', '$2a$10$SSahAXMX/e.3VS0juErkceVbwwR1iL8/cWYnOD5IILyf.74EMnHr6', false),
         ('Roger', 'roger@iscool.com', '$2a$10$./Rk0decBFt/XHJcIJX2XOq3Qq0AbfsQCPNQ7Gz66TA7dFK8l5/Fm', false);
 
     INSERT INTO examples
