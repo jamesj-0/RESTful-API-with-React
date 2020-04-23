@@ -1,6 +1,13 @@
 # Week8-BFOP - Snippets of Code!
 
-[TOC]
+[About](#About)
+[Stack](#Stack)
+[User Stories](#User-Stories)
+[Local Installation](#Local-Installation)
+[Running the server](#Running-the-server)
+[Running the tests](#Running-the-tests)
+[Example users and passwords](#Example-users-and-passwords)
+[Finally](#Finally)
 
 ## About
 
@@ -61,14 +68,14 @@ Project build as a part of Founders and Coders FAC19.
 7. If you'd like more and proper full code examples you can import the file /db/examples.sql into your production database with your preffered db admin tool.
 
 
-### Running the server
+## Running the server
 
 Run `npm run dev` to run for development purposes
 
 OR `node server.js` to run server in production mode
 
 
-### Running tests
+## Running the tests
 
 Test can be run with `npm run test`. You must have a database called localtest set up for the tests to run. No mocks here - we need to actually test our models!
 
@@ -85,6 +92,8 @@ There are five default users, their email addresses are.
 Their passwords are all, unsurprisingly, 'password'.
 
 The admin account is special. It can delete anyone's posts, other users can only delete their own.
+
+## Finally
 
 Have fun and please PM us if you have an install problems!
 
