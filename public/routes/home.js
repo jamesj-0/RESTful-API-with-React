@@ -49,6 +49,7 @@ function writeToNav(redirect) {
 
 
 function createListItem(code, userId) {
+    console.log(code.example, hljs.highlightAuto(code.example)) //TODO: use diff function cos they think its PHP
     const li = document.createElement("li");
 
     const title = document.createElement("h2");
@@ -57,12 +58,10 @@ function createListItem(code, userId) {
     const language = document.createElement("h3");
     language.append(code.language);
 
-    // const example = document.createElement("p");
-    // example.append(code.example);
-
     const example = document.createElement("pre");
     const exampleChild = document.createElement("code");
-    exampleChild.textContent = code.example;
+    const codeMarkup = hljs.highlightAuto(code.example).value
+    exampleChild.innerHTML = codeMarkup;
     exampleChild.classList.add(code.language);
     example.append(exampleChild);
 
