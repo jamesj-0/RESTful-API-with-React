@@ -3,6 +3,7 @@ import query from "../query.js";
 const wrapper = document.querySelector("#wrapper");
 const nav = document.querySelector("#navigation");
 
+
 const loggedIn = `
 <button class="log-out">Log Out</button>
 `;
@@ -25,16 +26,18 @@ const allCode = `
 <ul></ul>
 `;
 
-function home() {
-    writeToNav();
+function home({redirect}) {
+    console.log("home called");
+    
+    writeToNav(redirect);
     writeToWrapper();
 }
 
-function writeToNav() {
+function writeToNav(redirect) {
     // check auth token and display accordingly
     const token = localStorage.getItem("token");
-
-    if (!token) {
+    // console.log('token ', !!token, token === 'undefined', typeof token)
+    if (token === "undefined" || !token) {
         nav.innerHTML = loggedOut;
     } else {
         nav.innerHTML = loggedIn;
