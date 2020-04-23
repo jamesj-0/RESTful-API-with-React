@@ -1,8 +1,6 @@
-console.log ("Client side routing!");
 import router from "./router.js";
 import home from "./routes/home.js"
 import signUp from "./routes/sign-up.js"
-console.log("signUp is:", signUp);
 // import logIn from ""
 // import createExample from ""
 // import updateExample from ""
