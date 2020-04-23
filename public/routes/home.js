@@ -8,12 +8,12 @@ const loggedIn = `
 `;
 
 const loggedOut = `
-<button class="log-in">
+<button class="log-in link">
     <a href='/log-in'>
     Log In
     </a>
 </button>
-<button class="sign-up">
+<button class="sign-up link">
     <a href='/sign-up'>
     Sign Up
     </a>
@@ -49,7 +49,6 @@ function writeToNav(redirect) {
 
 
 function createListItem(code, userId) {
-    console.log(code.example, hljs.highlightAuto(code.example)) //TODO: use diff function cos they think its PHP
     const li = document.createElement("li");
 
     const title = document.createElement("h2");
@@ -60,9 +59,8 @@ function createListItem(code, userId) {
 
     const example = document.createElement("pre");
     const exampleChild = document.createElement("code");
-    const codeMarkup = hljs.highlightAuto(code.example).value
+    const codeMarkup = hljs.highlightAuto(code.example, [code.language.toLowerCase(), 'javascript', 'html']).value
     exampleChild.innerHTML = codeMarkup;
-    exampleChild.classList.add(code.language);
     example.append(exampleChild);
 
     if (userId == code.owner_id) {
