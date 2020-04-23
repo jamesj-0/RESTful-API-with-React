@@ -6,6 +6,7 @@ function get(path, callback){
 } 
 
 function navigate(url){
+    console.log(url)
     const parsedUrl = new URL(url); 
     const callback = routes[parsedUrl.pathname] ||  routes.default;
     callback({ url: parsedUrl, redirect });
