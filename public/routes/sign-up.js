@@ -47,7 +47,6 @@ function signUp( req ){
     app.innerHTML = signUpPage;
 
     const form = document.querySelector("form");
-    const inputs = form.querySelectorAll("input");
     const nameInput = form.querySelector("#username");
     const nameRegex = /^[a-zA-Z-.' ]{2,}$/;
     const emailInput = form.querySelector("#email");
@@ -56,6 +55,7 @@ function signUp( req ){
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
     const errorMessage = {
+        username: "Check your name doesn't contain odd characters",
         email: "This needs to include an @ and domain",
         password: "Try adding an unusual word",
     }
@@ -87,10 +87,10 @@ function signUp( req ){
               if (!valid[key]) {
                 const input = document.getElementById(key);
                 input.style.borderColor = "hsl(200, 100%, 45%)";
-                input.nextElementSibling.textContent = errorMessage[key];
+                input.textContent = errorMessage[key];
               }
             }
-        }
+        } else {
 
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -121,7 +121,8 @@ function signUp( req ){
             const message = document.getElementById("message");
             message.textContent = err.stack;
         })
-    });
+    }
+});
 }
 
 export default signUp;
