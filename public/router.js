@@ -14,7 +14,7 @@ function navigate(url){
 function redirect(path){
     const url = window.location.origin + path; 
     window.history.pushState(null, null, url);
-    naviagate(url); 
+    navigate(url); 
 }
 
 function handleClick(event){

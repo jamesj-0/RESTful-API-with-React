@@ -23,15 +23,22 @@ function signUp( req ){
         
         const formData = new FormData(event.target);
         const formObject = Object.fromEntries(formData);
-        query("/sign-up", {
+        query("/signup", {
             "headers" : { "content-type": "application/json" }, 
             "body": JSON.stringify(formObject),
             "method": "POST" 
         })
         .then( result => {
-            console.log("OUR RESULT & token:", result, result.access_token);
-            if(result.access_token){
-                localStorage.setItem("access-token", result.access_token);
+            console.log("OUR RESULT & token:", result, result.token);
+            console.log("RESULT TYPE", typeof result);
+            if( typeof result === typeof {} && !result.hasOwnProperty("token") ){
+                console.log("SIGNUP FAILED FOR SOME REASON");
+                throw new Error ("Signup failed");
+            } 
+            if(result.token){
+                localStorage.setItem("access-token", result.token);
+                localStorage.setItem("user-id", result.user_id);
+                console.log("Redirecting to home route")
                 req.redirect("/");
             } else {
                 console.log("No access token received, try signing up again.")
@@ -40,7 +47,7 @@ function signUp( req ){
         .catch( err => {
             console.error(err);
             const message = document.getElementById("message");
-            message.textContent( err.message );
+            message.textContent = err.stack;
         })
     });
 }
