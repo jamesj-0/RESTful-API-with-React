@@ -3,7 +3,6 @@ import query from "../query.js";
 const wrapper = document.querySelector("#wrapper");
 const nav = document.querySelector("#navigation");
 
-
 const loggedIn = `
 <button class="log-out">Log Out</button>
 `;
@@ -28,7 +27,7 @@ const allCode = `
 
 function home({redirect}) {
     console.log("home called");
-    
+
     writeToNav(redirect);
     writeToWrapper();
 }
@@ -48,21 +47,33 @@ function writeToNav(redirect) {
     }
 }
 
+
 function createListItem(code, userId) {
     const li = document.createElement("li");
+
     const title = document.createElement("h2");
     title.append(code.title);
+
     const language = document.createElement("h3");
     language.append(code.language);
-    const example = document.createElement("p");
-    example.append(code.example);
-    if(userId == code.owner_id){
-    const deleteButton = document.createElement("button");
-    deleteButton.append('&#128465');
-    const editButton = document.createElement("button");
-    editButton.append('&#9998');
-    return li.append(title, language, example, deleteButton, editButton);
+
+    // const example = document.createElement("p");
+    // example.append(code.example);
+
+    const example = document.createElement("pre");
+    const exampleChild = document.createElement("code");
+    exampleChild.textContent = code.example;
+    exampleChild.classList.add(code.language);
+    example.append(exampleChild);
+
+    if (userId == code.owner_id) {
+        const deleteButton = document.createElement("button");
+        deleteButton.append("&#128465");
+        const editButton = document.createElement("button");
+        editButton.append("&#9998");
+        return li.append(title, language, example, deleteButton, editButton);
     }
+
     li.append(title, language, example);
     return li;
 }
@@ -73,8 +84,8 @@ function writeToWrapper() {
 
     query("/all")
         .then(json => {
-          let codeSnippets = json.map(code => createListItem(code, userId));
-          wrapper.querySelector("ul").append(...codeSnippets);
+            let codeSnippets = json.map(code => createListItem(code, userId));
+            wrapper.querySelector("ul").append(...codeSnippets);
         })
         .catch(error => {
             console.error(error);
