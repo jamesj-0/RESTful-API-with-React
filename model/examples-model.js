@@ -60,11 +60,11 @@ function getExample(id) {
     return db.query("SELECT * FROM examples WHERE id=($1)", [id]).then(res => res.rows[0]);
 }
 
-function updateExamplebyID(id, newdata, userId) {
-    return getExample(id).then(dbExample => {
-        if (dbExample.id === userId) {
+function updateExamplebyID(postId, newdata, userId) {
+    return getExample(postId).then(dbExample => {
+        if (dbExample.owner_id === userId) {
             //check if user wrote the example
-            const vals = [newdata.language, newdata.title, newdata.example, id];
+            const vals = [newdata.language, newdata.title, newdata.example, postId];
             return (
                 db
                     .query(
@@ -75,8 +75,9 @@ function updateExamplebyID(id, newdata, userId) {
                     .then(res => res.rows[0])
             );
         } else {
+            console.log("THE ERROR IS:", error);
             const error = new Error("You do not own this example");
-            error.status = 401;
+            error.status = 321;
             throw error;
         }
     });

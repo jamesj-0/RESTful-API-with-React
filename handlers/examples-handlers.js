@@ -35,7 +35,6 @@ function getExample(req, res, next) {
     modelExample
         .getExample(id)
         .then(result => {
-            console.log(!result === undefined);
             if (!result) {
                 res.status(204).send("Error: Resource not found");
             }
@@ -51,10 +50,9 @@ function updateExample(req, res, next) {
     if (id === NaN) {
         // if id was not a number then throws an error (prevents SQL injections)
         const err = new Error("This is not a valid ID");
-        err.status = 401;
+        err.status = 400;
         next(err);
     }
-
     modelExample
         .updateExamplebyID(id, newdata, userID)
         .then(result => {

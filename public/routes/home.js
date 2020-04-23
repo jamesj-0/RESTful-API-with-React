@@ -4,7 +4,7 @@ const wrapper = document.querySelector("#wrapper");
 const nav = document.querySelector("#navigation");
 
 const loggedIn = `
-<button class="log-out">Log Out</button>
+<button id="log-out">Log Out</button>
 `;
 
 const loggedOut = `
@@ -35,19 +35,17 @@ function home({redirect}) {
 function writeToNav(redirect) {
     // check auth token and display accordingly
     const token = localStorage.getItem("access-token");
-    console.log("token", token)
     // console.log('token ', !!token, token === 'undefined', typeof token)
     if (token === "undefined" || !token) {
         nav.innerHTML = loggedOut;
     } else {
         nav.innerHTML = loggedIn;
-        nav.querySelector(".log-out").addEventListener("click", () => {
-            localStorage.removeItem("token");
+        nav.querySelector("#log-out").addEventListener("click", () => {
+            window.localStorage.clear();
             redirect("/");
         });
     }
 }
-
 
 function createListItem(code, userId) {
     const li = document.createElement("li");
@@ -57,28 +55,35 @@ function createListItem(code, userId) {
 
     const language = document.createElement("h3");
     language.append(code.language);
-
     const example = document.createElement("pre");
     const exampleChild = document.createElement("code");
-    const codeMarkup = hljs.highlightAuto(code.example, [code.language.toLowerCase(), 'javascript', 'html']).value
+    const codeMarkup = hljs.highlightAuto(code.example, [
+        code.language.toLowerCase(),
+        "javascript",
+        "html"
+    ]).value;
     exampleChild.innerHTML = codeMarkup;
     example.append(exampleChild);
 
-    if (userId == code.owner_id) {
-        const deleteButton = document.createElement("button");
-        deleteButton.append("&#128465");
-        const editButton = document.createElement("button");
-        editButton.append("&#9998");
-        return li.append(title, language, example, deleteButton, editButton);
-    }
+    const deleteButton = document.createElement("button");
+    deleteButton.dataset.postid = code.id;
+    deleteButton.append("Delete");
 
-    li.append(title, language, example);
+    const editButton = document.createElement("button");
+    editButton.dataset.postid = code.id;
+    editButton.append("Edit");
+    
+    if (userId == code.owner_id) {
+        li.append(title, language, example, deleteButton, editButton);
+    } else {
+        li.append(title, language, example);
+    }
     return li;
 }
 
 function writeToWrapper() {
     wrapper.innerHTML = allCode;
-    const userId = localStorage.getItem("user_id");
+    const userId = localStorage.getItem("user-id");
 
     query("/all")
         .then(json => {
@@ -92,3 +97,7 @@ function writeToWrapper() {
 }
 
 export default home;
+
+// wrapper.querySelector('.delete-button').addEventListener('click', (event) => {
+//     console.log(event.target)
+// })

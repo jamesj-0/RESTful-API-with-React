@@ -8,13 +8,14 @@ function get(path, callback){
 function redirect(path){
     const url = window.location.origin + path; 
     window.history.pushState(null, null, url);
-    naviagate(url); 
+    navigate(url); 
 }
 
 function navigate(url){
-    console.log(url)
+    console.log("THE URL IS:", url)
     const parsedUrl = new URL(url); 
-    const callback = routes[parsedUrl.pathname] ||  routes.default;
+    const basePath = parsedUrl.pathname.split("?")[0];
+    const callback = routes[basePath] ||  routes.default;
     callback({ url: parsedUrl, redirect });
 }
 
@@ -37,7 +38,19 @@ function handleClick(event){
       event.preventDefault(); 
       window.history.pushState(null, null, event.target.href); 
       navigate(event.target.href);
-  }
+    }
+    if(event.target.tagName === "BUTTON"){
+        const buttonName = event.target.textContent;
+        if(buttonName === "Delete" || buttonName === "Edit"){
+            event.preventDefault();
+            window.history.pushState(null, null, event.target.href); 
+            const postId = Number(event.target.dataset.postid);
+            if(isNaN(postId)) throw new Error ("That's not a post ID chump!");
+            if(buttonName === "Edit"){ redirect(`/post?edit=${postId}`); }
+            if(buttonName === "Delete"){
+            }
+        }
+    }
 }
 
 function handlePop(){
