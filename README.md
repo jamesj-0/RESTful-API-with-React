@@ -115,6 +115,9 @@ Their passwords are, unsurprisingly, 'password'.
 
 The admin account is special. It can delete anyone's posts, other users can only delete their own.
 
+If you want to use these users then your .env file needs to have the super secret code!...
+SECRET=SECRETCODE
+
 # Using the API
 
 ### Get all examples (return json all all stored objects)

@@ -124,13 +124,11 @@ function submitHandler(event,req){
         .then( throwIfNot200 )
         .then( decodeJSONOrDie )
         .then(result => {
-            console.log("OUR RESULT IS", result)
             if (!result.exampleId && !result.id) {
                 const error = new Error(result);
                 error.status = result.status;
                 throw error;
             } else {
-                console.log("RESULT SEEMS OK:", result);
                 req.redirect("/");
             }
         })
@@ -153,7 +151,6 @@ function getCurrentExample(edit) {
         .then( throwIfNot200 )
         .then( decodeJSONOrDie )
         .then(result => {
-            console.log('result', result)
             wrapper.querySelector("#title").value = result.title;
             wrapper.querySelector("#language").value = result.language;
             wrapper.querySelector("#example").value = result.example;
