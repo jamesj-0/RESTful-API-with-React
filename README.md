@@ -1,12 +1,19 @@
 # Week8-BFOP - Snippets of Code!
 
 [About](#About)
+
 [Stack](#Stack)
+
 [User Stories](#User-Stories)
+
 [Local Installation](#Local-Installation)
+
 [Running the server](#Running-the-server)
+
 [Running the tests](#Running-the-tests)
+
 [Example users and passwords](#Example-users-and-passwords)
+
 [Finally](#Finally)
 
 ## About
