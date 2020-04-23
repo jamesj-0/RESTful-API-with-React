@@ -79,6 +79,7 @@ function login(req, res, next) {
                     expiresIn: "24h"
                 });
                 res.send({
+                    user_id: dbUser.id,
                     token: token
                 });
             });
