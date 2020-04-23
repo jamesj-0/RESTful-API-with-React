@@ -5,6 +5,12 @@ function get(path, callback){
     routes[path] = callback;
 } 
 
+function redirect(path){
+    const url = window.location.origin + path; 
+    window.history.pushState(null, null, url);
+    naviagate(url); 
+}
+
 function navigate(url){
     console.log(url)
     const parsedUrl = new URL(url); 
