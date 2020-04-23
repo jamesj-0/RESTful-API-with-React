@@ -25,12 +25,14 @@ const allCode = `
 <ul></ul>
 `;
 
-function home() {
-    writeToNav();
+function home({redirect}) {
+    console.log("home called");
+    
+    writeToNav(redirect);
     writeToWrapper();
 }
 
-function writeToNav({redirect}) {
+function writeToNav(redirect) {
     // check auth token and display accordingly
     const token = localStorage.getItem("token");
 
@@ -53,7 +55,7 @@ function createListItem(code) {
     language.append(code.language);
     const example = document.createElement("p");
     example.append(code.example);
-    li.append(title, langauge, example);
+    li.append(title, language, example);
 }
 
 function writeToWrapper() {
