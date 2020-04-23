@@ -1,0 +1,228 @@
+* {
+    font-family: "Manrope", sans-serif;
+}
+body {
+    margin-top: 5rem;
+}
+
+header {
+    width: 100%;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    display: flex;
+    justify-content: space-between;
+    background-color: hsl(0, 0%, 20%);
+}
+
+h1 {
+    font-family: "Source Code Pro", monospace;
+    display: inline;
+    color: white;
+    margin-left: 2rem;
+}
+
+h1 a {
+    color: white;
+    text-decoration: none;
+}
+
+.nav {
+    display: inline-flex;
+    /* overflow: hidden; */
+
+    justify-content: flex-end;
+    height: auto;
+    /* float: right; */
+}
+
+.nav button {
+    position: relative;
+    padding: 2rem 0rem 2rem 0rem;
+    margin-left: 1rem;
+    margin-right: 3rem;
+    background-color: hsl(0, 0%, 20%);
+    color: hsl(0, 0%, 96%);
+    border: none;
+}
+
+.link a,
+link a:visited {
+    position: relative;
+    text-decoration: none;
+    color: hsl(0, 0%, 96%);
+    transition: color 0.4s ease-out;
+}
+
+.link:hover {
+    opacity: 1;
+    text-decoration: none;
+}
+
+.link::after {
+    border-radius: 0.5rem;
+    border-top: 0.05rem solid hsl(0, 0%, 96%);
+    content: "";
+    position: absolute;
+    right: 100%;
+    bottom: 0.8;
+    left: 0;
+    transition: right 0.6s cubic-bezier(0, 0.5, 0, 1), border-color 0.4s ease-out;
+}
+
+.link:hover::after {
+    color: hsl(0, 0%, 96%);
+    right: 0;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li + li {
+    margin-top: 8em;
+}
+
+code {
+    background-color: hsla(38, 10%, 43%, 1);
+    color: white;
+    padding: 1em;
+    border-radius: 5%;
+}
+
+code * {
+    font-family: "Source Code Pro", monospace;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    font: inherit;
+    color: inherit;
+    justify-content: center;
+    align-items: center;
+}
+form label {
+    margin-top: 1.5rem;
+    font-weight: bold;
+    line-height: 1;
+}
+
+form input {
+    width: 70%;
+    margin-top: 0.5rem;
+    border-radius: 2px;
+    border: 2px solid transparent;
+    box-shadow: 0 3px 6px hsla(280, 10%, 40%, 0.2);
+    padding: 0.5rem;
+    background-color: #fff;
+}
+
+form button {
+    margin: 1rem;
+    padding: 1rem;
+    width: 50%;
+    border-radius: 2px;
+    border: 0;
+    box-shadow: 0 3px 6px hsla(280, 10%, 20%, 0.2);
+    padding: 0.75rem 1.25rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    background-color: hsl(164, 100%, 66%);
+    color: hsl(280, 30%, 20%);
+}
+
+form label {
+    font-weight: bold;
+    align-self: flex-start;
+    margin-left: 15%;
+}
+
+.input__verify {
+    color: hsl(0, 100%, 45%);
+    width: 0%;
+    font-size: 40px;
+}
+
+.error {
+    font-size: 1rem;
+    font-style: italic;
+}
+
+
+.requirements {
+    margin-top: 0.5rem;
+    line-height: 1.6;
+    color: hsl(202, 98%, 25%);
+  }
+
+@media screen and (max-width: 900px) {
+    body {
+        margin: 0;
+        position: relative;
+    }
+
+    body div {
+        position: relative;
+        top: 100px;
+    }
+
+    header {
+        display: grid;
+        grid-template-rows: 2fr 1fr;
+        grid template-columns: 1fr;
+        height: auto;
+        width: 100%;
+        z-index: 2;
+    }
+
+    h1 {
+        grid-row: 1/2;
+        display: block;
+        font-size: 1.7em;
+        margin: 0 initial;
+        width: 100%;
+        /* margin-top: 0.25em;
+        margin-bottom: 0.25em; */
+    }
+
+
+    .nav {
+        grid-row: 2/3;
+        display: flex;
+        height: auto;
+        width: 100%;
+        margin: 0 initial;
+    }
+
+    li + li {
+        margin-top: 4em;
+    }
+
+
+
+    .nav button {
+        position: auto;
+        padding: none;
+        padding: 0;
+        height: auto;
+        background-color: inherit;
+        padding-bottom: 0.25em;
+    }
+    
+    .link a,
+    link a:visited {
+        /* position: relative; */
+        text-decoration: none;
+        color: hsl(0, 0%, 96%);
+        transition: color 0.4s ease-out;
+        font-size: 1.25em;
+        margin-bottom: 0.5em
+    }
+
+    
+    .link::after {
+        content: none;
+    }
+
+}
