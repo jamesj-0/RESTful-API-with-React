@@ -1,6 +1,7 @@
 // import query from "../query.js";
 function throwIfNot200(res){
     if (!res.ok){
+        console.log("throwIfNot200 is having an error!");
         const error = new Error(res);
         error.status = res.status;
         throw error;
@@ -81,6 +82,16 @@ const postForm = /*html*/`
 `
 
 function post(req){
+
+    // GET CURRENT FORM FIELDS AND POPULATE
+    let edit = req.url.searchParams.get("edit")
+    if(edit) edit = Number(edit);
+    if(isNaN(edit)) throw new Error ("edit url parameter must be an integer");
+    if(edit){
+        getCurrentExample(edit)
+    }
+
+
     wrapper.innerHTML = postForm;
     postNav(req);
     const userId = localStorage.getItem("user-id");
@@ -92,7 +103,7 @@ function post(req){
 function submitHandler(event,req){
     event.preventDefault();
     const token = localStorage.getItem("access-token");
-    const edit = req.url.searchParams.get("edit")
+    let edit = req.url.searchParams.get("edit")
     if(edit) edit = Number(edit);
     if(isNaN(edit)) throw new Error ("edit url parameter must be an integer");
     
@@ -114,7 +125,7 @@ function submitHandler(event,req){
         .then( decodeJSONOrDie )
         .then(result => {
             console.log("OUR RESULT IS", result)
-            if (!result.exampleId) {
+            if (!result.exampleId && !result.id) {
                 const error = new Error(result);
                 error.status = result.status;
                 throw error;
@@ -126,8 +137,7 @@ function submitHandler(event,req){
         .catch(error => {
             if(error.status && error.status === 401) {
                 // Log user out if their auth fails
-                localStorage.removeItem("access-token");
-                localStorage.removeItem("user-id");
+                window.localStorage.clear()
                 wrapper.querySelector("#message").innerHTML =
                 `You are not logged in properly. Visit the <a href="/log-in">Log in page</a>`;
             } else {
@@ -135,6 +145,23 @@ function submitHandler(event,req){
                 wrapper.querySelector("#message").append("Something went wrong, soz!");
             }
         });
+}
+
+function getCurrentExample(edit) {
+    const endpoint = `/examples/${edit}`
+    fetch(endpoint)
+        .then( throwIfNot200 )
+        .then( decodeJSONOrDie )
+        .then(result => {
+            console.log('result', result)
+            wrapper.querySelector("#title").value = result.title;
+            wrapper.querySelector("#language").value = result.language;
+            wrapper.querySelector("#example").value = result.example;
+        })
+        .catch((error) => {
+            console.error(error);
+            wrapper.querySelector("#message").append("Something went wrong, soz!");
+        })
 }
 
 export default post;
