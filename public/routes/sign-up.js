@@ -26,8 +26,6 @@ const signUpPage = /*html*/
         minlength="8"
         placeholder="Make it memorable"
         />
-        <div id="passwordError" class="error"></div>
-        <div id="passwordScore" class="password__score-box"><div class="password__score"></div></div>
         <div id="passwordTime" class="password__time">Your password should contain at least 8 characters, including a letter and number.</div>
     
         <div id="message"></div>
@@ -57,12 +55,6 @@ function signUp( req ){
     const passwordInput = form.querySelector("#password");
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-    let valid = {
-        username: false, 
-        email: false, 
-        password: false,
-      }
-
     const errorMessage = {
         email: "This needs to include an @ and domain",
         password: "Try adding an unusual word",
@@ -82,13 +74,19 @@ function signUp( req ){
         valid.password = validate(passwordInput, passwordRegex.test(passwordInput.value));
     })
 
+    let valid = {
+        username: false, 
+        email: false, 
+        password: false,
+      }
+
     form.addEventListener("submit", event => {
         if (Object.values(valid).includes(false)) {
             event.preventDefault();
-            for (key in valid) {
+            for (const key in valid) {
               if (!valid[key]) {
-                input = document.getElementById(key);
-                input.style.borderColor = "hsl(0, 100%, 45%)";
+                const input = document.getElementById(key);
+                input.style.borderColor = "hsl(200, 100%, 45%)";
                 input.nextElementSibling.textContent = errorMessage[key];
               }
             }
