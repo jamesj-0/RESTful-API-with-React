@@ -4,7 +4,7 @@ const wrapper = document.querySelector("#wrapper");
 const nav = document.querySelector("#navigation");
 
 const loggedIn = `
-<button id="log-out">
+<button class="link" id="log-out">
     <a>
         Log Out
     </a>
