@@ -4,8 +4,6 @@ const app = document.querySelector('#wrapper');
 
 const logInPage = `
     <form>
-        <label for="username">Username</label>
-        <input id="username" type="text" name="username">
         <label for="email">Email</label>
         <input id="email" type="email" name="email">
         <label for="password">Password</label>
@@ -15,8 +13,6 @@ const logInPage = `
     </form>
 `
 
-// TODO: work out why username is required and change that
-
 function logIn() {
   app.innerHTML = logInPage;
   const form = document.querySelector("form");
@@ -24,12 +20,18 @@ function logIn() {
     event.preventDefault()
 
     const formObject = Object.fromEntries(new FormData(event.target))
-    query("/signup", {
+    query("/login", {
       "headers": {"content-type": "application/json"},
       "body": JSON.stringify(formObject),
       "method": "POST"
     })
-    .then((res) => {console.log(res)}
+    .then((userInfo) => {console.log(userInfo)
+      console.log(userInfo)
+      localStorage.setItem('user_id', userInfo.user_id)
+      localStorage.setItem('token', userInfo.token)
+      console.log(localStorage.getItem('user_id'));
+      console.log(localStorage.getItem('token'))
+    }
     /* TODO: add token to local storage, redirect */
     /* Get user id too */
     )

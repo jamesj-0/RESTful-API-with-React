@@ -35,8 +35,8 @@ function home({redirect}) {
 function writeToNav(redirect) {
     // check auth token and display accordingly
     const token = localStorage.getItem("token");
-
-    if (!token) {
+    // console.log('token ', !!token, token === 'undefined', typeof token)
+    if (token === "undefined" || !token) {
         nav.innerHTML = loggedOut;
     } else {
         nav.innerHTML = loggedIn;
