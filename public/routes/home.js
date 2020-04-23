@@ -30,7 +30,7 @@ function home() {
     writeToWrapper();
 }
 
-function writeToNav({redirect}) {
+function writeToNav() {
     // check auth token and display accordingly
     const token = localStorage.getItem("token");
 
@@ -45,7 +45,7 @@ function writeToNav({redirect}) {
     }
 }
 
-function createListItem(code) {
+function createListItem(code, userId) {
     const li = document.createElement("li");
     const title = document.createElement("h2");
     title.append(code.title);
@@ -53,15 +53,25 @@ function createListItem(code) {
     language.append(code.language);
     const example = document.createElement("p");
     example.append(code.example);
-    li.append(title, langauge, example);
+    if(userId == code.owner_id){
+    const deleteButton = document.createElement("button");
+    deleteButton.append('&#128465');
+    const editButton = document.createElement("button");
+    editButton.append('&#9998');
+    return li.append(title, language, example, deleteButton, editButton);
+    }
+    li.append(title, language, example);
+    return li;
 }
 
 function writeToWrapper() {
     wrapper.innerHTML = allCode;
+    const userId = localStorage.getItem("user_id");
+
     query("/all")
         .then(json => {
-            const codeSnippets = json.map(code => createListItem(code));
-            wrapper.querySelector("ul").append(...codeSnippets);
+          let codeSnippets = json.map(code => createListItem(code, userId));
+          wrapper.querySelector("ul").append(...codeSnippets);
         })
         .catch(error => {
             console.error(error);
