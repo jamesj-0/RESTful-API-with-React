@@ -25,11 +25,15 @@ function logIn({redirect}) {
       "body": JSON.stringify(formObject),
       "method": "POST"
     })
-    .then((userInfo) => {console.log(userInfo)
-      localStorage.setItem('user-id', userInfo.user_id)
-      localStorage.setItem('access-token', userInfo.token)
-      console.log(redirect)
-      redirect("/")
+    .then((userInfo) => {
+        if (userInfo.token) {
+          localStorage.setItem('user-id', userInfo.user_id)
+          localStorage.setItem('access-token', userInfo.token)
+          redirect("/")
+        } else {
+          document.querySelector("#message").textContent = "These credentials were not found in the server"
+        }
+      // console.log("user info ", userInfo)
     }
     )
     .catch((err) => {
