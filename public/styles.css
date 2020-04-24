@@ -157,6 +157,10 @@ form label {
     color: hsl(202, 98%, 25%);
   }
 
+#hello-message {
+    font-size: 1.4rem;
+}
+
 @media screen and (max-width: 900px) {
     body {
         margin: 0;
@@ -171,7 +175,7 @@ form label {
     header {
         display: grid;
         grid-template-rows: 2fr 1fr;
-        grid template-columns: 1fr;
+        grid-template-columns: 1fr;
         height: auto;
         width: 100%;
         z-index: 2;
@@ -200,7 +204,10 @@ form label {
         margin-top: 4em;
     }
 
-
+    #hello-message {
+        padding: 2rem;
+        top: 30px;
+    }
 
     .nav button {
         position: auto;
