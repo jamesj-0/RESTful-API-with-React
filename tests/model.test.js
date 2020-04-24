@@ -97,7 +97,7 @@ test("Returns a users row by id", t => {
     build().then(() => {
         getUserById("2")
             .then(res => {
-                t.equal(res.username, "Tom");
+                t.equal(res.username, "James");
                 t.equal(res.adminusr, false);
                 t.end();
             })
@@ -111,8 +111,8 @@ test("Returns a users row by id", t => {
 test("Does not allow duplicate users when email is already in use", t => {
     build().then(() => {
         const user = {
-            username: "Tommy",
-            email: "tom@iscool.com",
+            username: "Ivo",
+            email: "ivo@iscool.com",
             password: "password"
         };
         createUser(user).catch(() => {

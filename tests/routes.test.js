@@ -20,7 +20,7 @@ test("Test main route returns 200", t => {
             .expect("content-type", "application/json; charset=utf-8")
             .end((err, res) => {
                 t.error(err, "HTTP status is 200 and application/json; charset=utf-8");
-                t.equals(res.text.includes("Kat"), true, "Kat should be present");
+                t.equals(res.text.includes("Ivo"), true, "Ivo should be present");
                 t.equals(
                     res.text.includes("Test example 4"),
                     true,
