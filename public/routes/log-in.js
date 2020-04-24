@@ -1,4 +1,6 @@
 import query from "../query.js";
+import writeToNav from "../lib/write-to-nav.js"
+
 
 const app = document.querySelector('#wrapper');
 
@@ -14,6 +16,7 @@ const logInPage = `
 `
 
 function logIn({redirect}) {
+  writeToNav(redirect)
   app.innerHTML = logInPage;
   const form = document.querySelector("form");
   form.addEventListener("submit", (event) => {
@@ -27,6 +30,7 @@ function logIn({redirect}) {
     })
     .then((userInfo) => {
         if (userInfo.token) {
+          localStorage.setItem('user-name', userInfo.user_name)
           localStorage.setItem('user-id', userInfo.user_id)
           localStorage.setItem('access-token', userInfo.token)
           redirect("/")

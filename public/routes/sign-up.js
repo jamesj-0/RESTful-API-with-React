@@ -1,4 +1,5 @@
 import query from "../query.js";
+import writeToNav from "../lib/write-to-nav.js";
 
 const app = document.querySelector("#wrapper");
 
@@ -46,6 +47,7 @@ function validate(input, test) {
 }
 
 function signUp(req) {
+    writeToNav({req});
     app.innerHTML = signUpPage;
 
     const form = document.querySelector("form");
@@ -113,6 +115,7 @@ function signUp(req) {
                         throw new Error("Signup failed");
                     }
                     if (result.token) {
+                        localStorage.setItem("user-name", result.user_name);
                         localStorage.setItem("access-token", result.token);
                         localStorage.setItem("user-id", result.user_id);
                         console.log("Redirecting to home route");
