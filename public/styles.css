@@ -178,6 +178,12 @@ form label {
     font-size: 1.4rem;
 }
 
+
+#example {
+    width: 70%;
+    height: 15em;
+}
+
 @media screen and (max-width: 900px) {
     body {
         margin: 0;
