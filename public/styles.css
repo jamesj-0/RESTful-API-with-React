@@ -84,7 +84,7 @@ li + li {
 
 pre {
     display: inline-block;
-    background-color: hsla(38, 10%, 43%, 1);
+    background-color: hsla(38, 10%, 15%, 1);
     color: white;
     padding: 1em;
     border-radius: 1%;
