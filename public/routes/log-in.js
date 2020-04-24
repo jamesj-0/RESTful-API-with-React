@@ -30,6 +30,7 @@ function logIn({redirect}) {
     })
     .then((userInfo) => {
         if (userInfo.token) {
+          localStorage.setItem('user-name', userInfo.user_name)
           localStorage.setItem('user-id', userInfo.user_id)
           localStorage.setItem('access-token', userInfo.token)
           redirect("/")

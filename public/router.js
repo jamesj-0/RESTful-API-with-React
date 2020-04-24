@@ -15,6 +15,23 @@ function router() {
         navigate(url);
     }
 
+    function handleClick(event) {
+        if (
+          "external" in event.target.dataset ||
+          event.button !== 0 ||
+          event.metaKey ||
+          event.shiftKey ||
+          event.altKey ||
+          event.ctrlKey
+        )
+          return;
+        if (event.target.tagName === "A") {
+          event.preventDefault();
+          window.history.pushState(null, null, event.target.href);
+          navigate(event.target.href);
+        }
+      }
+
     function navigate(url) {
         const parsedUrl = new URL(url);
         const basePath = parsedUrl.pathname.split("?")[0];
@@ -27,7 +44,7 @@ function router() {
         window.history.pushState(null, null, url);
         navigate(url);
     }
-}
+
 
     function handlePop() {
         navigate(window.location);

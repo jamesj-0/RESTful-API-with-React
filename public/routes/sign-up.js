@@ -110,6 +110,7 @@ function signUp( req ){
                 throw new Error ("Signup failed");
             } 
             if(result.token){
+                localStorage.setItem("user-name", result.user_name);
                 localStorage.setItem("access-token", result.token);
                 localStorage.setItem("user-id", result.user_id);
                 console.log("Redirecting to home route")
