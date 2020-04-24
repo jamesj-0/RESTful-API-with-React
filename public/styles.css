@@ -7,6 +7,7 @@ body {
 
 header {
     width: 100%;
+    z-index: 10;
     position: fixed; /* Set the navbar to fixed position */
     top: 0; /* Position the navbar at the top of the page */
     display: flex;
@@ -19,23 +20,36 @@ header h1 {
     display: inline;
     color: white;
     margin-left: 2rem;
+    position: relative;
 }
 
 header h1 a {
     color: white;
     text-decoration: none;
+    position: relative;
+    opacity: 1;
+    text-decoration: none;
+    color: hsl(0, 0%, 96%);
+    transition: opacity 0.4s ease-out;
+}
+h1 a:hover {
+    opacity: 0.5;
+    text-decoration: none;
+}
+
+h1 a::after {
+    color: hsl(0, 0%, 96%);
+    right: 0;
 }
 
 .nav {
     display: inline-flex;
-    /* overflow: hidden; */
-
     justify-content: flex-end;
     height: auto;
-    /* float: right; */
 }
 
 .nav button {
+    font-size: 1rem;
     position: relative;
     padding: 2rem 0rem 2rem 0rem;
     margin-left: 1rem;
@@ -49,8 +63,9 @@ header h1 a {
 link a:visited {
     position: relative;
     text-decoration: none;
+    opacity: 0.8;
     color: hsl(0, 0%, 96%);
-    transition: color 0.4s ease-out;
+    transition: opacity 0.4s ease-out;
 }
 
 .link:hover {
@@ -70,6 +85,7 @@ link a:visited {
 }
 
 .link:hover::after {
+    opacity: 1;
     color: hsl(0, 0%, 96%);
     right: 0;
 }
@@ -146,16 +162,17 @@ form label {
 }
 
 .error {
-    font-size: 1rem;
+    margin: 0;
+    font-size: 0.8rem;
     font-style: italic;
+    color: hsl(200, 100%, 45%);
 }
-
 
 .requirements {
     margin-top: 0.5rem;
     line-height: 1.6;
     color: hsl(202, 98%, 25%);
-  }
+}
 
 @media screen and (max-width: 900px) {
     body {
@@ -169,61 +186,47 @@ form label {
     }
 
     header {
-        display: grid;
-        grid-template-rows: 2fr 1fr;
-        grid template-columns: 1fr;
         height: auto;
         width: 100%;
-        z-index: 2;
     }
 
     h1 {
-        grid-row: 1/2;
         display: block;
         font-size: 1.7em;
         margin: 0 initial;
         width: 100%;
-        /* margin-top: 0.25em;
-        margin-bottom: 0.25em; */
     }
 
-
     .nav {
-        grid-row: 2/3;
         display: flex;
         height: auto;
+        margin-right: 1.2rem;
         width: 100%;
         margin: 0 initial;
+    }
+
+    .nav button {
+        padding: 2rem 0rem 2rem 0rem;
+        margin-left: 0.75rem;
+        margin-right: 0.75rem;
+        font-size: 0.8rem;
+        background-color: inherit;
     }
 
     li + li {
         margin-top: 4em;
     }
 
-
-
-    .nav button {
-        position: auto;
-        padding: none;
-        padding: 0;
-        height: auto;
-        background-color: inherit;
-        padding-bottom: 0.25em;
-    }
-    
     .link a,
     link a:visited {
-        /* position: relative; */
         text-decoration: none;
         color: hsl(0, 0%, 96%);
         transition: color 0.4s ease-out;
         font-size: 1.25em;
-        margin-bottom: 0.5em
+        margin-bottom: 0.5em;
     }
 
-    
     .link::after {
         content: none;
     }
-
 }
