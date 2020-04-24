@@ -1,4 +1,5 @@
 import query from "../query.js";
+import writeToNav from "../lib/write-to-nav.js"
 
 const app = document.querySelector('#wrapper');
 
@@ -44,6 +45,7 @@ function validate(input, test){
   }
 
 function signUp( req ){
+  writeToNav({req})
     app.innerHTML = signUpPage;
 
     const form = document.querySelector("form");
