@@ -42,7 +42,7 @@ function createListItem(code, userId) {
     editButton.dataset.postid = code.id;
     editButton.append('Edit');
 
-    if(userId == code.owner_id){
+    if(userId == code.owner_id || userId === "1"){
         li.append(title, name, language, example, deleteButton, editButton);
     } else {
         li.append(title, name, language, example);
