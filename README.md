@@ -91,7 +91,7 @@ Test can be run with `npm run test`. You must have a database called localtest s
 
 There are five default users, their email addresses are.
 - admin@iscool.com
-- james@iscool.com
+- jimmyface123@jimmy.com
 - ivo@iscool.com
 - cammy@iscool.com
 - roger@iscool.com
