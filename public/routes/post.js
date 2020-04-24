@@ -1,27 +1,4 @@
-// import query from "../query.js";
-function throwIfNot200(res){
-    if (!res.ok){
-        console.log("throwIfNot200 is having an error!");
-        const error = new Error(res);
-        error.status = res.status;
-        throw error;
-    }
-    return res;
-}
-
-function decodeJSONOrDie(res){
-    const contentType = res.headers.get("content-type");
-    if (contentType && contentType.includes("json")) {
-      return res.json();
-    } else {
-        const error = new Error("Was expecting JSON!");
-        console.log("Was expecting JSON payload but got", res);
-        error.status = res.status;
-        throw error;
-    }
-}
-
-
+import query from "../query.js";
 
 const wrapper = document.querySelector('#wrapper');
 const nav = document.querySelector('#navigation');
@@ -120,9 +97,7 @@ function submitHandler(event,req){
     }
     
     const endpoint = edit ? `/examples/${edit}` : "/examples";
-    fetch(endpoint, fetchParams)
-        .then( throwIfNot200 )
-        .then( decodeJSONOrDie )
+    query(endpoint, fetchParams, 200)
         .then(result => {
             if (!result.exampleId && !result.id) {
                 const error = new Error(result);
@@ -147,9 +122,7 @@ function submitHandler(event,req){
 
 function getCurrentExample(edit) {
     const endpoint = `/examples/${edit}`
-    fetch(endpoint)
-        .then( throwIfNot200 )
-        .then( decodeJSONOrDie )
+    query(endpoint, {}, 200)
         .then(result => {
             wrapper.querySelector("#title").value = result.title;
             wrapper.querySelector("#language").value = result.language;
