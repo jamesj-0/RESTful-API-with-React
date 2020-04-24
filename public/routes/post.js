@@ -65,6 +65,8 @@ function postNav(req){
 
 const postForm = /*html*/`
     <form>
+        <div id="hello-message"></div>
+        <br>
         <label for="title">Title</label><br>
         <input id="title" type="text" name="title">
         <br> <!-- get rid of these is we have time to do some css -->
@@ -94,8 +96,8 @@ function post(req){
 
     wrapper.innerHTML = postForm;
     postNav(req);
-    const userId = localStorage.getItem("user-id");
-    wrapper.querySelector("#message").innerHTML = "Hi user " + userId + "!";
+    const username = localStorage.getItem("user-name");
+    wrapper.querySelector("#hello-message").innerHTML = "Howdy " + username + "!";
     const form = document.querySelector("form")
     form.addEventListener("submit", event => submitHandler(event,req));
 }
