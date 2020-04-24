@@ -27,38 +27,7 @@ function router() {
         window.history.pushState(null, null, url);
         navigate(url);
     }
-
-    function handleClick(event) {
-        if (
-            "external" in event.target.dataset ||
-            event.button !== 0 ||
-            event.metaKey ||
-            event.shiftKey ||
-            event.altKey ||
-            event.ctrlKey
-        )
-            return;
-        if (event.target.tagName === "A") {
-            event.preventDefault();
-            window.history.pushState(null, null, event.target.href);
-            navigate(event.target.href);
-        }
-        if (event.target.tagName === "BUTTON") {
-            const buttonName = event.target.textContent;
-            if (buttonName === "Delete" || buttonName === "Edit") {
-                event.preventDefault();
-                window.history.pushState(null, null, event.target.href);
-                const postId = Number(event.target.dataset.postid);
-                if (isNaN(postId)) throw new Error("That's not a post ID chump!");
-                if (buttonName === "Edit") {
-                    redirect(`/post?edit=${postId}`);
-                }
-                if (buttonName === "Delete") {
-                    redirect(`/delete?delete=${postId}`);
-                }
-            }
-        }
-    }
+}
 
     function handlePop() {
         navigate(window.location);

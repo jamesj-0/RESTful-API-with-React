@@ -10,7 +10,7 @@ const allCode = `
 
 function home({redirect}) { 
     writeToNav(redirect);
-    writeToWrapper();
+    writeToWrapper(redirect);
 }
 
 function createListItem(code, userId) {
@@ -33,12 +33,15 @@ function createListItem(code, userId) {
     example.append(exampleChild);
 
     const deleteButton = document.createElement("button");
-    deleteButton.dataset.postid = code.id;
+    deleteButton.setAttribute('id', 'delete')
     deleteButton.append("Delete");
+    deleteButton.dataset.postid = code.id;
 
     const editButton = document.createElement("button");
+    editButton.setAttribute('id', 'edit')
     editButton.dataset.postid = code.id;
     editButton.append('Edit');
+
     if(userId == code.owner_id){
         li.append(title, name, language, example, deleteButton, editButton);
     } else {
@@ -47,7 +50,7 @@ function createListItem(code, userId) {
     return li;
 }
 
-function writeToWrapper() {
+function writeToWrapper(redirect) {
     wrapper.innerHTML = allCode;
     const userId = localStorage.getItem("user-id");
 
@@ -55,11 +58,26 @@ function writeToWrapper() {
         .then(json => {
             let codeSnippets = json.map(code => createListItem(code, userId));
             wrapper.querySelector("ul").append(...codeSnippets);
+            window.addEventListener('click', handleButtonClick)
+            function handleButtonClick(event) {
+                if(event.target.tagName === "BUTTON"){
+                    const buttonName = event.target.textContent;
+                    if(buttonName === "Delete" || buttonName === "Edit"){
+                        event.preventDefault();
+                        window.history.pushState(null, null, event.target.href); 
+                        const postId = Number(event.target.dataset.postid);
+                        if(isNaN(postId)) throw new Error ("That's not a post ID chump!");
+                        if(buttonName === "Edit"){ redirect(`/post?edit=${postId}`); }
+                        if(buttonName === "Delete"){ redirect(`/delete?delete=${postId}`)}
+                    }
+                }
+            }
         })
         .catch(error => {
             console.error(error);
             wrapper.querySelector("#message").append("Something went wrong!");
         });
-}
+    }
+    
 
 export default home;
