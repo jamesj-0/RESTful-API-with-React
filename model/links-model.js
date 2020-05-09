@@ -14,7 +14,7 @@ function getUserPrivilage(user_id) {
         .then(res => res.rows[0].adminusr);
 }
 
-function getLinkByUsername(username) {
+function getLinksByUsername(username) {
     return db
         .query(
             `SELECT users.username, links.id, links.owner_id, links.title, links.link FROM links INNER JOIN users ON users.id = links.owner_id
@@ -91,7 +91,7 @@ module.exports = {
     getLinkById,
     getAllLinksByUserId,
     getUserPrivilage,
-    getLinkByUsername,
+    getLinksByUsername,
     createLink,
     deleteLink,
     updateLinkbyID

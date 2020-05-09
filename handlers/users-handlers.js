@@ -49,14 +49,13 @@ function signup(req, res, next) {
                         token: token
                     });
                 })
-                .catch( err => {
+                .catch(err => {
                     res.status(401).send({
-                        error: "Could not sign up with those credentials, that email may already exist",
+                        error:
+                            "Could not sign up with those credentials, that email may already exist",
                         msg: err.message
-                    }); 
-                }
-
-                );
+                    });
+                });
         })
         .catch(next);
 }

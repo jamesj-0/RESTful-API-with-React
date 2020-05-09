@@ -6,7 +6,7 @@ const {createUser, getUsers, getUser, getUserById} = require("../model/users-mod
 const {
     getLinkById,
     getAllLinksByUserId,
-    getLinkByUsername,
+    getLinksByUsername,
     getUserPrivilage,
     createLink,
     deleteLink,
@@ -158,7 +158,7 @@ test("Can get all links by owner_id", t => {
 test("Can get all links by username", t => {
     build().then(() => {
         const username = "James";
-        getLinkByUsername(username)
+        getLinksByUsername(username)
             .then(res => {
                 t.equal(res[0].title, "bandcamp", "Correct first title returned");
                 t.equal(res[0].link, "www.bandcamp.com", "Correct first link address returned");

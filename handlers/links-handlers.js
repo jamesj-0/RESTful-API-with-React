@@ -1,26 +1,23 @@
 const {
     getLinkById,
     getAllLinksByUserId,
-    getUserPrivilage,
-    getLinkByUsername,
+    getLinksByUsername,
     createLink,
     deleteLink,
     updateLinkbyID
 } = require("../model/links-model");
 
-function getAllExamples(req, res, next) {
-    modelExample
-        .getAllExamples()
+function getAllLinks(req, res, next) {
+    getLinksByUsername(req.params.userName)
         .then(example => res.send(example))
         .catch(next);
 }
 
-// Inserts a new example into the examples table and returns the inserted row's id
-function postExample(req, res, next) {
+// Inserts a new link into the links table and returns the inserted row's id
+function postLink(req, res, next) {
     req.body.user_id = req.user.id;
     req.body.admin = req.user.admin;
-    modelExample
-        .createExample(req.body)
+    createLink(req.body)
         .then(exampleId => {
             res.status(201).send({
                 exampleId: exampleId
@@ -29,29 +26,15 @@ function postExample(req, res, next) {
         .catch(next);
 }
 
-function deleteExample(req, res, next) {
-    modelExample
-        .deleteExample(req.params.id, req.user)
+function removeLink(req, res, next) {
+    deleteLink(req.params.id, req.user)
         .then(() => {
             res.status(200).send({deleted: true});
         })
         .catch(next);
 }
 
-function getExample(req, res, next) {
-    const id = req.params.id;
-    modelExample
-        .getExample(id)
-        .then(result => {
-            if (!result) {
-                res.status(204).send("Error: Resource not found");
-            }
-            res.status(200).send(result);
-        })
-        .catch(next);
-}
-
-function updateExample(req, res, next) {
+function updateLink(req, res, next) {
     const id = Number(req.params.id); //req.params.id comes back as a string
     const userID = req.user.id;
     const newdata = req.body;
@@ -61,8 +44,7 @@ function updateExample(req, res, next) {
         err.status = 400;
         next(err);
     }
-    modelExample
-        .updateExamplebyID(id, newdata, userID)
+    updateLinkbyID(id, newdata, userID)
         .then(result => {
             res.status(200).send(result);
         })
@@ -70,9 +52,8 @@ function updateExample(req, res, next) {
 }
 
 module.exports = {
-    getAllExamples,
-    postExample,
-    getExample,
-    deleteExample,
-    updateExample
+    getAllLinks,
+    postLink,
+    removeLink,
+    updateLink
 };
