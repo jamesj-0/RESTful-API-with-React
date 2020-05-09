@@ -7,6 +7,7 @@ const {
     getLinkById,
     getAllLinksByUserId,
     getLinkByUsername,
+    getUserPrivilage,
     createLink,
     deleteLink
 } = require("../model/links-model");
@@ -63,7 +64,24 @@ test("Returns user with a given email address", t => {
     });
 });
 
-test("Returns users admin privaleges by id", t => {});
+test("Returns users admin privaleges by id", t => {
+    const userId1 = 1;
+    const userId2 = 2;
+    build().then(() => {
+        getUserPrivilage(userId1).then(res => {
+            t.equal(res, true, "User has admin privaleges");
+        });
+        getUserPrivilage(userId2)
+            .then(res => {
+                t.equal(res, false, "User has admin privaleges");
+                t.end();
+            })
+            .catch(err => {
+                t.error(err);
+                t.end();
+            });
+    });
+});
 
 test("Returns a users row by id", t => {
     build().then(() => {
@@ -182,7 +200,7 @@ test("Can create a link entry", t => {
     });
 });
 
-test("Can delete a link entry", t => {
+test("Can delete a link entry if user_id matches", t => {
     build().then(() => {
         const linkEntry = {
             title: "newLink",
@@ -201,6 +219,35 @@ test("Can delete a link entry", t => {
                 });
                 deleteLink(res, linkEntry.owner_id).then(res => {
                     t.equal(res, true, "Response from deleteLink is true, entry was deleted");
+                    t.end();
+                });
+            })
+            .catch(err => {
+                t.error(err);
+                t.end();
+            });
+    });
+});
+
+test("Admin can delete a link", t => {
+    build().then(() => {
+        const linkEntry = {
+            title: "newLink",
+            owner_id: 3,
+            link: "www.newEntry.com"
+        };
+        createLink(linkEntry)
+            .then(res => {
+                t.equal(res, 5, "Correct entry ID returned, entry created");
+                deleteLink(res, 2).then(res => {
+                    t.equal(
+                        res,
+                        false,
+                        "Response from deleteLink is false, owner_id does not have admin privaleges"
+                    );
+                });
+                deleteLink(res, 1).then(res => {
+                    t.equal(res, true, "Response from deleteLink is true, admin deleted link");
                     t.end();
                 });
             })

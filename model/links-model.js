@@ -8,6 +8,12 @@ function getAllLinksByUserId(id) {
     return db.query("SELECT * FROM links WHERE owner_id=($1)", [id]).then(res => res.rows);
 }
 
+function getUserPrivilage(user_id) {
+    return db
+        .query("SELECT adminusr FROM users WHERE id=($1)", [user_id])
+        .then(res => res.rows[0].adminusr);
+}
+
 function getLinkByUsername(username) {
     return db
         .query(
@@ -34,23 +40,25 @@ function createLink(link) {
 }
 
 function deleteLink(linkId, owner_id) {
-    return getLinkById(linkId).then(linkObjectFromDB => {
-        if (linkObjectFromDB.owner_id === owner_id) {
-            // check if user is authorised
-            return db
-                .query("DELETE FROM links WHERE id = ($1);", [linkId])
-                .then(result => true)
-                .catch(err => {
-                    const error = new Error("Delete query failed!" + err.message);
-                    error.status = 400;
-                    throw error;
-                });
-        } else {
-            const error = new Error("Only owner or admin can delete this.");
-            error.status = 403;
-            return false; //return false for tests but throw error for production
-            throw error;
-        }
+    return getUserPrivilage(owner_id).then(admin => {
+        return getLinkById(linkId).then(linkObjectFromDB => {
+            if (linkObjectFromDB.owner_id === owner_id || admin === true) {
+                // check if user is authorised
+                return db
+                    .query("DELETE FROM links WHERE id = ($1);", [linkId])
+                    .then(result => true)
+                    .catch(err => {
+                        const error = new Error("Delete query failed!" + err.message);
+                        error.status = 400;
+                        throw error;
+                    });
+            } else {
+                const error = new Error("Only owner or admin can delete this.");
+                error.status = 403;
+                return false; //return false for tests but throw error for production
+                throw error;
+            }
+        });
     });
 }
 
@@ -80,6 +88,7 @@ function deleteLink(linkId, owner_id) {
 module.exports = {
     getLinkById,
     getAllLinksByUserId,
+    getUserPrivilage,
     getLinkByUsername,
     createLink,
     deleteLink
