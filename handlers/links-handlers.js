@@ -1,4 +1,12 @@
-const modelExample = require("../model/examples-model");
+const {
+    getLinkById,
+    getAllLinksByUserId,
+    getUserPrivilage,
+    getLinkByUsername,
+    createLink,
+    deleteLink,
+    updateLinkbyID
+} = require("../model/links-model");
 
 function getAllExamples(req, res, next) {
     modelExample

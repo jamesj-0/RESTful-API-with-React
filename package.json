@@ -4,21 +4,21 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "PGDATABASE=localtest tape tests/*.test.js | tap-spec",
+        "test": "PGDATABASE=links_test_db tape tests/*.test.js | tap-spec",
         "dev": "nodemon server.js",
         "setupdb": "node db/build.js",
         "format": "prettier --write '**/*.{js,css,md}'"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/fac19/week7-CRaKT.git"
+        "url": "git+https://github.com/jamesj-0/RESTful-API-with-React.git"
     },
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/fac19/week7-CRaKT/issues"
+        "url": "https://github.com/jamesj-0/RESTful-API-with-React"
     },
-    "homepage": "https://github.com/fac19/week7-CRaKT#readme",
+    "homepage": "https://github.com/jamesj-0/RESTful-API-with-React#readme",
     "dependencies": {
         "bcryptjs": "^2.4.3",
         "ci": "^1.0.0",
