@@ -9,7 +9,8 @@ const {
     getLinkByUsername,
     getUserPrivilage,
     createLink,
-    deleteLink
+    deleteLink,
+    updateLinkbyID
 } = require("../model/links-model");
 
 test("DB tests are running!", t => {
@@ -106,7 +107,7 @@ test("Does not allow duplicate users when email is already in use", t => {
             password: "password"
         };
         createUser(user).catch(() => {
-            //using .catch here as I know it will error.
+            /*using .catch here as I know it will error */
             getUsers().then(res => {
                 t.equal(res[res.length - 1].username, "Jimmyface123", "Database has not changed");
                 t.end();
@@ -132,7 +133,7 @@ test("Can get a link by the id", t => {
     });
 });
 
-test("Can get all links by userID", t => {
+test("Can get all links by owner_id", t => {
     build().then(() => {
         const id = 2;
         getAllLinksByUserId(2)
@@ -185,7 +186,6 @@ test("Can create a link entry", t => {
         };
         createLink(linkEntry)
             .then(res => {
-                /* returns the post ID */
                 getLinkById(res).then(res => {
                     t.equal(res.title, linkEntry.title, "Correct title returned");
                     t.equal(res.owner_id, linkEntry.owner_id, "Correct owner ID returned");
@@ -249,6 +249,83 @@ test("Admin can delete a link", t => {
                 deleteLink(res, 1).then(res => {
                     t.equal(res, true, "Response from deleteLink is true, admin deleted link");
                     t.end();
+                });
+            })
+            .catch(err => {
+                t.error(err);
+                t.end();
+            });
+    });
+});
+
+test("Can update a link entry if the owner_id matches", t => {
+    build().then(() => {
+        const linkEntry = {
+            title: "newLink",
+            owner_id: 2,
+            link: "www.newEntry.com"
+        };
+        const updateEntry = {
+            title: "updateLink",
+            owner_id: 2,
+            link: "www.updateEntry.com"
+        };
+        createLink(linkEntry)
+            .then(res => {
+                getLinkById(res).then(res => {
+                    t.equal(res.title, linkEntry.title, "Correct title returned");
+                    t.equal(res.owner_id, linkEntry.owner_id, "Correct owner ID returned");
+                    t.equal(res.link, linkEntry.link, "Correct owner link address returned");
+                    updateLinkbyID(res.id, updateEntry, updateEntry.owner_id).then(res => {
+                        t.equal(res.title, updateEntry.title, "Correct title returned");
+                        t.equal(res.link, updateEntry.link, "Correct owner link address returned");
+                        t.end();
+                    });
+                });
+            })
+            .catch(err => {
+                t.error(err);
+                t.end();
+            });
+    });
+});
+
+test("Admin can update a link entry", t => {
+    build().then(() => {
+        const linkEntry = {
+            title: "newLink",
+            owner_id: 2,
+            link: "www.newEntry.com"
+        };
+        const updateEntry = {
+            title: "updateLink",
+            owner_id: 2,
+            link: "www.updateEntry.com"
+        };
+        createLink(linkEntry)
+            .then(res => {
+                getLinkById(res).then(res => {
+                    t.equal(res.title, linkEntry.title, "Entry Created");
+                    updateLinkbyID(res.id, updateEntry, 3).then(res => {
+                        t.equal(
+                            res,
+                            false,
+                            "owner_id doesn't match, owner_id cannot update this link"
+                        );
+                    });
+                    updateLinkbyID(res.id, updateEntry, 1).then(res => {
+                        t.equal(
+                            res.title,
+                            updateEntry.title,
+                            "Correct title returned, Admin updated"
+                        );
+                        t.equal(
+                            res.link,
+                            updateEntry.link,
+                            "Correct owner link address returned, Admin updated"
+                        );
+                        t.end();
+                    });
                 });
             })
             .catch(err => {

@@ -62,28 +62,30 @@ function deleteLink(linkId, owner_id) {
     });
 }
 
-// function updateExamplebyID(postId, newdata, userId) {
-//     return getExample(postId).then(dbExample => {
-//         if (dbExample.owner_id === userId) {
-//             //check if user wrote the example
-//             const vals = [newdata.language, newdata.title, newdata.example, postId];
-//             return (
-//                 db
-//                     .query(
-//                         "UPDATE examples SET language = COALESCE($1, language), title = COALESCE($2, title), example = COALESCE($3, example) WHERE id =($4) RETURNING *",
-//                         vals
-//                     )
-//                     //COALESCE only updates where values are not null
-//                     .then(res => res.rows[0])
-//             );
-//         } else {
-//             console.log("THE ERROR IS:", error);
-//             const error = new Error("You do not own this example");
-//             error.status = 321;
-//             throw error;
-//         }
-//     });
-// }
+function updateLinkbyID(linkId, newdata, owner_id) {
+    return getUserPrivilage(owner_id).then(admin => {
+        return getLinkById(linkId).then(dbExample => {
+            if (dbExample.owner_id === owner_id || admin === true) {
+                //check if user wrote the example
+                const vals = [newdata.title, newdata.link, linkId];
+                return (
+                    db
+                        .query(
+                            "UPDATE links SET title = COALESCE($1, title), link = COALESCE($2, link) WHERE id =($3) RETURNING *",
+                            vals
+                        )
+                        //COALESCE only updates where values are not null
+                        .then(res => res.rows[0])
+                );
+            } else {
+                const error = new Error("You do not own this example");
+                error.status = 321;
+                return false; //return error for tests but throw error for production
+                throw error;
+            }
+        });
+    });
+}
 
 module.exports = {
     getLinkById,
@@ -91,7 +93,6 @@ module.exports = {
     getUserPrivilage,
     getLinkByUsername,
     createLink,
-    deleteLink
-    // deleteExample,
-    // updateExamplebyID
+    deleteLink,
+    updateLinkbyID
 };
