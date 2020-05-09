@@ -12,29 +12,19 @@ test("Route tests are running!", t => {
     t.end();
 });
 
-// test("Test main route returns 200", t => {
-//     build().then(() => {
-//         supertest(server)
-//             .get("/all")
-//             .expect(200)
-//             .expect("content-type", "application/json; charset=utf-8")
-//             .end((err, res) => {
-//                 t.error(err, "HTTP status is 200 and application/json; charset=utf-8");
-//                 t.equals(res.text.includes("Ivo"), true, "Ivo should be present");
-//                 t.equals(
-//                     res.text.includes("Test example 4"),
-//                     true,
-//                     "example title should be present"
-//                 );
-//                 t.equals(
-//                     res.text.includes("Example 1 code goes here."),
-//                     true,
-//                     "example text should be present"
-//                 );
-//                 t.end();
-//             });
-//     });
-// });
+test("Test main route returns 200", t => {
+    build().then(() => {
+        supertest(server)
+            .get("/James")
+            .expect(200)
+            .expect("content-type", "application/json; charset=utf-8")
+            .end((err, res) => {
+                t.error(err, "HTTP status is 200 and application/json; charset=utf-8");
+                t.equals(res.text.includes("James"), true, "James should be present");
+                t.end();
+            });
+    });
+});
 
 // test("Test /signup route", t => {
 //     build().then(() => {

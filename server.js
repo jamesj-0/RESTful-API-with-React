@@ -10,15 +10,6 @@ const PORT = process.env.PORT || 3000;
 const server = express();
 server.use(express.json());
 
-/*
- getAllExamples,
-    postExample,
-    getExample,
-    deleteExample,
-    updateExample
-
-*/
-
 server.get("/:userName", getAllLinks);
 server.post("user/create", signup);
 server.post("user/login", login);
@@ -33,7 +24,7 @@ server.use((req, res, next) => {
 server.use(handleError);
 
 // If this env exists we are in testing mode so don't start the server
-if (process.env.PGDATABASE !== "localtest") {
+if (process.env.PGDATABASE !== "links_test_db") {
     server.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
 }
 
