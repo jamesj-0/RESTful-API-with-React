@@ -26,7 +26,9 @@ CREATE TABLE links
         (username, email, user_password, adminusr)
     VALUES
         ('admin', 'admin@iscool.com', '$2a$10$zH7.4s2AbH8Lz.SqsauRSOldLUacu3axD.0ZgoR2v2CJpM/pItOiy', true),
-        ('James', 'james@iscool.com', '$2a$10$aHsFImUy5q1fj37Z72O6r.iUpDLL1CBH38UCaHGK25CEP5W5uyVQa', false);
+        ('James', 'james@iscool.com', '$2a$10$aHsFImUy5q1fj37Z72O6r.iUpDLL1CBH38UCaHGK25CEP5W5uyVQa', false),
+        ('Jimmyface123', 'jimmy@iscool.com', '$2a$10$aHsFImUy5q1fj37Z72O6r.iUpDLL1CBH38UCaHGK25CEP5W5uyVQa', false);
+
 
     INSERT INTO links
         (owner_id, link, title)
@@ -34,6 +36,6 @@ CREATE TABLE links
         (2, 'www.bandcamp.com', 'bandcamp'),
         (2, 'www.spotify.com', 'spotify'),
         (2, 'www.soundcloud.com', 'soundcloud'),
-        (2, 'www.mixcloud.com', 'mixcloud');
+        (3, 'www.mixcloud.com', 'mixcloud');
 
     COMMIT;

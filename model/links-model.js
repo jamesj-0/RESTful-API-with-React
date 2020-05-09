@@ -1,7 +1,21 @@
 const db = require("../db/connection.js");
 
-function getLinkByID(id) {
+function getLinkById(id) {
     return db.query("SELECT * FROM links WHERE id=($1)", [id]).then(res => res.rows[0]);
+}
+
+function getAllLinksByUserId(id) {
+    return db.query("SELECT * FROM links WHERE owner_id=($1)", [id]).then(res => res.rows);
+}
+
+function getLinkByUsername(username) {
+    return db
+        .query(
+            `SELECT users.username, links.id, links.owner_id, links.title, links.link FROM links INNER JOIN users ON users.id = links.owner_id
+            WHERE users.username = ($1)`,
+            [username]
+        )
+        .then(res => res.rows);
 }
 
 // function getAllExamples() {
@@ -84,8 +98,9 @@ function getLinkByID(id) {
 // }
 
 module.exports = {
-    getLinkByID
-    // getAllExamples,
+    getLinkById,
+    getAllLinksByUserId,
+    getLinkByUsername
     // createExample,
     // deleteExample,
     // updateExamplebyID

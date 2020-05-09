@@ -3,7 +3,7 @@ const test = require("tape");
 
 const {createUser, getUsers, getUser, getUserById} = require("../model/users-model");
 
-const {getLinkByID} = require("../model/links-model");
+const {getLinkById, getAllLinksByUserId, getLinkByUsername} = require("../model/links-model");
 
 test("DB tests are running!", t => {
     const x = 5;
@@ -23,7 +23,7 @@ test("Can create new user", t => {
             getUsers()
                 .then(res => {
                     t.equal(res[res.length - 1].username, "Bob123", "User has correct name");
-                    t.equal(res.length, 3, "Users table is 1 longer");
+                    t.equal(res.length, 4, "Users table is 1 longer");
                     t.end();
                 })
                 .catch(err => {
@@ -73,10 +73,27 @@ test("Returns a users row by id", t => {
     });
 });
 
+test("Does not allow duplicate users when email is already in use", t => {
+    build().then(() => {
+        const user = {
+            username: "this-isnt-james",
+            email: "james@iscool.com",
+            password: "password"
+        };
+        createUser(user).catch(() => {
+            //using .catch here as I know it will error.
+            getUsers().then(res => {
+                t.equal(res[res.length - 1].username, "Jimmyface123", "Database has not changed");
+                t.end();
+            });
+        });
+    });
+});
+
 test("Can get a link by the id", t => {
     build().then(() => {
-        const id = 1;
-        getLinkByID(id)
+        const linkId = 1;
+        getLinkById(linkId)
             .then(res => {
                 t.equal(res.title, "bandcamp", "Correct title returned");
                 t.equal(res.owner_id, 2, "Correct owner ID returned");
@@ -90,38 +107,46 @@ test("Can get a link by the id", t => {
     });
 });
 
-// test("Can get update an example by id without all values", t => {
-//     build().then(() => {
-//         const data = {
-//             language: "sql",
-//             example: "This is an example of SQL"
-//         };
-//         updateExamplebyID(4, data, 4)
-//             .then(res => {
-//                 t.equal(res.language, "sql", "Language updated OK");
-//                 t.equal(res.title, "Test example 4", "Title not altered");
-//                 t.equal(res.example, "This is an example of SQL", "Example text updated OK");
-//                 t.end();
-//             })
-//             .catch(err => {
-//                 t.error(err);
-//                 t.end();
-//             });
-//     });
-// });
-
-test("Does not allow duplicate users when email is already in use", t => {
+test("Can get all links by userID", t => {
     build().then(() => {
-        const user = {
-            username: "this-isnt-james",
-            email: "james@iscool.com",
-            password: "password"
-        };
-        createUser(user).catch(() => {
-            getUsers().then(res => {
-                t.equal(res[res.length - 1].username, "James", "Database has not changed");
+        const id = 2;
+        getAllLinksByUserId(2)
+            .then(res => {
+                t.equal(res[0].title, "bandcamp", "Correct title returned");
+                t.equal(res[0].link, "www.bandcamp.com", "Correct link address returned");
+                t.equal(res[res.length - 1].title, "soundcloud", "Correct title returned");
+                t.equal(
+                    res[res.length - 1].link,
+                    "www.soundcloud.com",
+                    "Correct link address returned"
+                );
+                t.end();
+            })
+            .catch(err => {
+                t.error(err);
                 t.end();
             });
-        });
+    });
+});
+
+test("Can get all links by username", t => {
+    build().then(() => {
+        const username = "James";
+        getLinkByUsername(username)
+            .then(res => {
+                t.equal(res[0].title, "bandcamp", "Correct first title returned");
+                t.equal(res[0].link, "www.bandcamp.com", "Correct first link address returned");
+                t.equal(res[res.length - 1].title, "soundcloud", "Correct last title returned");
+                t.equal(
+                    res[res.length - 1].link,
+                    "www.soundcloud.com",
+                    "Correct last link address returned"
+                );
+                t.end();
+            })
+            .catch(err => {
+                t.error(err);
+                t.end();
+            });
     });
 });
