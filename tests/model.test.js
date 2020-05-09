@@ -3,11 +3,12 @@ const test = require("tape");
 
 const {createUser, getUsers, getUser, getUserById} = require("../model/users-model");
 
-const {getExample, updateExamplebyID} = require("../model/examples-model");
+const {getLinkByID} = require("../model/links-model");
 
 test("DB tests are running!", t => {
     const x = 5;
     t.equal(x, 5, "this is working");
+    t.equal(x, 6, "this should fail");
     t.end();
 });
 
@@ -57,21 +58,37 @@ test("Returns user with a given email address", t => {
     });
 });
 
-// test("Can get an example by id", t => {
-//     build().then(() => {
-//         getExample(1)
-//             .then(res => {
-//                 t.equal(res.language, "js", "Correct language returned");
-//                 t.equal(res.title, "Test example 1", "Correct title returned");
-//                 t.equal(res.example, "Example 1 code goes here.", "Correct example text returned");
-//                 t.end();
-//             })
-//             .catch(err => {
-//                 t.error(err);
-//                 t.end();
-//             });
-//     });
-// });
+test("Returns a users row by id", t => {
+    build().then(() => {
+        getUserById("2")
+            .then(res => {
+                t.equal(res.username, "James");
+                t.equal(res.adminusr, false);
+                t.end();
+            })
+            .catch(err => {
+                t.error(err);
+                t.end();
+            });
+    });
+});
+
+test("Can get a link by the id", t => {
+    build().then(() => {
+        const id = 1;
+        getLinkByID(id)
+            .then(res => {
+                t.equal(res.title, "bandcamp", "Correct title returned");
+                t.equal(res.owner_id, 2, "Correct owner ID returned");
+                t.equal(res.link, "www.bandcamp.com", "Correct owner link address returned");
+                t.end();
+            })
+            .catch(err => {
+                t.error(err);
+                t.end();
+            });
+    });
+});
 
 // test("Can get update an example by id without all values", t => {
 //     build().then(() => {
@@ -93,34 +110,18 @@ test("Returns user with a given email address", t => {
 //     });
 // });
 
-// test("Returns a users row by id", t => {
-//     build().then(() => {
-//         getUserById("2")
-//             .then(res => {
-//                 t.equal(res.username, "James");
-//                 t.equal(res.adminusr, false);
-//                 t.end();
-//             })
-//             .catch(err => {
-//                 t.error(err);
-//                 t.end();
-//             });
-//     });
-// });
-
-// test("Does not allow duplicate users when email is already in use", t => {
-//     build().then(() => {
-//         const user = {
-//             username: "Ivo",
-//             email: "ivo@iscool.com",
-//             password: "password"
-//         };
-//         createUser(user).catch(() => {
-//             getUsers().then(res => {
-//                 t.equal(res[res.length - 1].username, "Roger", "Database has not changed");
-//                 // t.equal(res.length, 5);
-//                 t.end();
-//             });
-//         });
-//     });
-// });
+test("Does not allow duplicate users when email is already in use", t => {
+    build().then(() => {
+        const user = {
+            username: "this-isnt-james",
+            email: "james@iscool.com",
+            password: "password"
+        };
+        createUser(user).catch(() => {
+            getUsers().then(res => {
+                t.equal(res[res.length - 1].username, "James", "Database has not changed");
+                t.end();
+            });
+        });
+    });
+});

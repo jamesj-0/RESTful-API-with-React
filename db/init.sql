@@ -31,9 +31,9 @@ CREATE TABLE links
     INSERT INTO links
         (owner_id, link, title)
     VALUES
-        (2, 'www.', 'bandcamp'),
-        (2, 'www.', 'spotify'),
-        (2, 'www.', ''),
-        (2, 'www.', 'Test link 4');
+        (2, 'www.bandcamp.com', 'bandcamp'),
+        (2, 'www.spotify.com', 'spotify'),
+        (2, 'www.soundcloud.com', 'soundcloud'),
+        (2, 'www.mixcloud.com', 'mixcloud');
 
     COMMIT;
