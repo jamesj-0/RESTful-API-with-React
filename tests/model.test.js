@@ -7,7 +7,8 @@ const {
     getLinkById,
     getAllLinksByUserId,
     getLinkByUsername,
-    createLink
+    createLink,
+    deleteLink
 } = require("../model/links-model");
 
 test("DB tests are running!", t => {
@@ -61,6 +62,8 @@ test("Returns user with a given email address", t => {
             });
     });
 });
+
+test("Returns users admin privaleges by id", t => {});
 
 test("Returns a users row by id", t => {
     build().then(() => {
@@ -169,6 +172,35 @@ test("Can create a link entry", t => {
                     t.equal(res.title, linkEntry.title, "Correct title returned");
                     t.equal(res.owner_id, linkEntry.owner_id, "Correct owner ID returned");
                     t.equal(res.link, linkEntry.link, "Correct owner link address returned");
+                    t.end();
+                });
+            })
+            .catch(err => {
+                t.error(err);
+                t.end();
+            });
+    });
+});
+
+test("Can delete a link entry", t => {
+    build().then(() => {
+        const linkEntry = {
+            title: "newLink",
+            owner_id: 2,
+            link: "www.newEntry.com"
+        };
+        createLink(linkEntry)
+            .then(res => {
+                t.equal(res, 5, "Correct entry ID returned, entry created");
+                deleteLink(res, 3).then(res => {
+                    t.equal(
+                        res,
+                        false,
+                        "Response from deleteLink is false, owner_id doesn't match"
+                    );
+                });
+                deleteLink(res, linkEntry.owner_id).then(res => {
+                    t.equal(res, true, "Response from deleteLink is true, entry was deleted");
                     t.end();
                 });
             })

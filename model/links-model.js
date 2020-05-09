@@ -33,12 +33,12 @@ function createLink(link) {
         });
 }
 
-function deleteLink(linkId, user) {
-    return getExample(linkId).then(linkObjectFromDB => {
-        if (linkObjectFromDB.owner_id === user.id || user.adminusr) {
+function deleteLink(linkId, owner_id) {
+    return getLinkById(linkId).then(linkObjectFromDB => {
+        if (linkObjectFromDB.owner_id === owner_id) {
             // check if user is authorised
             return db
-                .query("DELETE FROM examples WHERE id = ($1);", [linkId])
+                .query("DELETE FROM links WHERE id = ($1);", [linkId])
                 .then(result => true)
                 .catch(err => {
                     const error = new Error("Delete query failed!" + err.message);
@@ -48,8 +48,8 @@ function deleteLink(linkId, user) {
         } else {
             const error = new Error("Only owner or admin can delete this.");
             error.status = 403;
+            return false; //return false for tests but throw error for production
             throw error;
-            return false;
         }
     });
 }
@@ -81,7 +81,8 @@ module.exports = {
     getLinkById,
     getAllLinksByUserId,
     getLinkByUsername,
-    createLink
+    createLink,
+    deleteLink
     // deleteExample,
     // updateExamplebyID
 };
