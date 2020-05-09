@@ -3,12 +3,16 @@ const test = require("tape");
 
 const {createUser, getUsers, getUser, getUserById} = require("../model/users-model");
 
-const {getLinkById, getAllLinksByUserId, getLinkByUsername} = require("../model/links-model");
+const {
+    getLinkById,
+    getAllLinksByUserId,
+    getLinkByUsername,
+    createLink
+} = require("../model/links-model");
 
 test("DB tests are running!", t => {
     const x = 5;
     t.equal(x, 5, "this is working");
-    t.equal(x, 6, "this should fail");
     t.end();
 });
 
@@ -143,6 +147,30 @@ test("Can get all links by username", t => {
                     "Correct last link address returned"
                 );
                 t.end();
+            })
+            .catch(err => {
+                t.error(err);
+                t.end();
+            });
+    });
+});
+
+test("Can create a link entry", t => {
+    build().then(() => {
+        const linkEntry = {
+            title: "newLink",
+            owner_id: 2,
+            link: "www.newEntry.com"
+        };
+        createLink(linkEntry)
+            .then(res => {
+                /* returns the post ID */
+                getLinkById(res).then(res => {
+                    t.equal(res.title, linkEntry.title, "Correct title returned");
+                    t.equal(res.owner_id, linkEntry.owner_id, "Correct owner ID returned");
+                    t.equal(res.link, linkEntry.link, "Correct owner link address returned");
+                    t.end();
+                });
             })
             .catch(err => {
                 t.error(err);

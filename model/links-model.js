@@ -18,61 +18,41 @@ function getLinkByUsername(username) {
         .then(res => res.rows);
 }
 
-// function getAllExamples() {
-//     return db
-//         .query(
-//             `SELECT
-//     users.username,
-//     examples.id,
-//     examples.owner_id,
-//     examples.language,
-//     examples.title,
-//     examples.example,
-//     examples.date
-//     FROM
-//     examples INNER JOIN users ON users.id = examples.owner_id
-//     ORDER BY examples.date DESC;`
-//         )
-//         .then(result => result.rows)
-//         .catch(error => {
-//             console.log("Error at getAllExamples handler is :" + error);
-//         });
-// }
+function createLink(link) {
+    return db
+        .query("INSERT INTO links(owner_id, link, title) VALUES($1, $2, $3) RETURNING id", [
+            link.owner_id,
+            link.link,
+            link.title
+        ])
+        .then(result => {
+            return result.rows[0].id;
+        })
+        .catch(error => {
+            console.log("Error in model/examples.js, createExample()", error);
+        });
+}
 
-// function createExample(example) {
-//     return db
-//         .query(
-//             "INSERT INTO examples(owner_id, language, title, example) VALUES($1, $2, $3, $4) RETURNING id",
-//             [example.user_id, example.language, example.title, example.example]
-//         )
-//         .then(result => {
-//             return result.rows[0].id;
-//         })
-//         .catch(error => {
-//             console.log("Error in model/examples.js, createExample()", error);
-//         });
-// }
-
-// function deleteExample(exampleId, user) {
-//     return getExample(exampleId).then(exampleObjectFromDB => {
-//         if (exampleObjectFromDB.owner_id === user.id || user.adminusr) {
-//             // check if user is authorised
-//             return db
-//                 .query("DELETE FROM examples WHERE id = ($1);", [exampleId])
-//                 .then(result => true)
-//                 .catch(err => {
-//                     const error = new Error("Delete query failed!" + err.message);
-//                     error.status = 400;
-//                     throw error;
-//                 });
-//         } else {
-//             const error = new Error("Only owner or admin can delete this.");
-//             error.status = 403;
-//             throw error;
-//             return false;
-//         }
-//     });
-// }
+function deleteLink(linkId, user) {
+    return getExample(linkId).then(linkObjectFromDB => {
+        if (linkObjectFromDB.owner_id === user.id || user.adminusr) {
+            // check if user is authorised
+            return db
+                .query("DELETE FROM examples WHERE id = ($1);", [linkId])
+                .then(result => true)
+                .catch(err => {
+                    const error = new Error("Delete query failed!" + err.message);
+                    error.status = 400;
+                    throw error;
+                });
+        } else {
+            const error = new Error("Only owner or admin can delete this.");
+            error.status = 403;
+            throw error;
+            return false;
+        }
+    });
+}
 
 // function updateExamplebyID(postId, newdata, userId) {
 //     return getExample(postId).then(dbExample => {
@@ -100,8 +80,8 @@ function getLinkByUsername(username) {
 module.exports = {
     getLinkById,
     getAllLinksByUserId,
-    getLinkByUsername
-    // createExample,
+    getLinkByUsername,
+    createLink
     // deleteExample,
     // updateExamplebyID
 };
