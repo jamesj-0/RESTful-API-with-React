@@ -10,11 +10,11 @@ const PORT = process.env.PORT || 3000;
 const server = express();
 server.use(express.json());
 
-server.get("/user/:userName", getAllLinks);
+server.get("/:userName", getAllLinks);
 server.post("/signup", signup);
 
 server.post("/login", login);
-// server.post("link/submit", auth, postLink);
+server.post("/links", auth, postLink);
 // server.put("/link/update/:id", auth, updateLink);
 // server.delete("/link/delete/:id", auth, removeLink);
 

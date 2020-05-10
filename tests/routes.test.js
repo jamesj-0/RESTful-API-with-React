@@ -15,7 +15,7 @@ test("Route tests are running!", t => {
 test("Test main route returns 200", t => {
     build().then(() => {
         supertest(server)
-            .get("/user/James")
+            .get("/James")
             .expect(200)
             .expect("content-type", "application/json; charset=utf-8")
             .end((err, res) => {
@@ -73,6 +73,38 @@ test("Test /login route", t => {
                     true,
                     "Check for correct jwt token"
                 );
+                t.end();
+            });
+    });
+});
+
+test("Test /examples POST route with valid auth token", t => {
+    build().then(() => {
+        const token = jwt.sign(
+            {
+                user_id: 2,
+                admin: false
+            },
+            process.env.SECRET,
+            {
+                expiresIn: "1hr"
+            }
+        );
+        supertest(server)
+            .post("/links")
+            .set({
+                Authorization: "Bearer " + token
+            })
+            .send({
+                title: "Test Post 99",
+                link: "Test body 99"
+            })
+            .expect(201)
+            .expect("content-type", "application/json; charset=utf-8")
+            .end((err, res) => {
+                t.error(err, "HTTP status is 200 and application/json; charset=utf-8");
+                t.equals(typeof res.body, typeof {}, "Check an Object is returned");
+                t.equals(typeof res.body.exampleId, typeof 1, "Check we get an integer ID");
                 t.end();
             });
     });
