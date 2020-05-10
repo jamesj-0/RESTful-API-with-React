@@ -55,7 +55,7 @@ function deleteLink(linkId, owner_id) {
             } else {
                 const error = new Error("Only owner or admin can delete this.");
                 error.status = 403;
-                return false; //return false for tests but throw error for production
+                // return false; //return error for model tests but throw error for production or routes test
                 throw error;
             }
         });
@@ -79,8 +79,8 @@ function updateLinkbyID(linkId, newdata, owner_id) {
                 );
             } else {
                 const error = new Error("You do not own this example");
-                error.status = 321;
-                return false; //return error for tests but throw error for production
+                error.status = 401;
+                // return false; //return error for model tests but throw error for production or routes test
                 throw error;
             }
         });

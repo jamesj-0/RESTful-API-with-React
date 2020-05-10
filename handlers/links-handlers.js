@@ -1,6 +1,4 @@
 const {
-    getLinkById,
-    getAllLinksByUserId,
     getLinksByUsername,
     createLink,
     deleteLink,
@@ -18,16 +16,16 @@ function postLink(req, res, next) {
     req.body.user_id = req.user.id;
     req.body.admin = req.user.admin;
     createLink(req.body)
-        .then(exampleId => {
+        .then(linkId => {
             res.status(201).send({
-                exampleId: exampleId
+                linkId: linkId
             });
         })
         .catch(next);
 }
 
 function removeLink(req, res, next) {
-    deleteLink(req.params.id, req.user)
+    deleteLink(req.params.id, req.user.id)
         .then(() => {
             res.status(200).send({deleted: true});
         })
