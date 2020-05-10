@@ -53,3 +53,27 @@ test("Test /signup route", t => {
             });
     });
 });
+
+test("Test /login route", t => {
+    build().then(() => {
+        supertest(server)
+            .post("/login")
+            .send({
+                email: "james@iscool.com",
+                password: "password"
+            })
+            .expect(200)
+            .expect("content-type", "application/json; charset=utf-8")
+            .end((err, res) => {
+                t.error(err, "HTTP status is 200 and application/json; charset=utf-8");
+                t.equals(typeof res.body, typeof {}, "Check an Object is returned");
+                t.notEquals(res.body.token, undefined, "Check that a token exists");
+                t.equals(
+                    /^[a-zA-Z0-9\-_]+?\.[a-zA-Z0-9\-_]+?\.([a-zA-Z0-9\-_]+)?$/.test(res.body.token),
+                    true,
+                    "Check for correct jwt token"
+                );
+                t.end();
+            });
+    });
+});

@@ -1,4 +1,4 @@
-const {createUser} = require("../model/users-model");
+const {createUser, getUser} = require("../model/users-model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
@@ -61,30 +61,30 @@ function signup(req, res, next) {
 // login function
 // IMPROVEMENTS
 // display error message if email or password are missing
-// function login(req, res, next) {
-//     model
-//         .getUser(req.body.email)
-//         .then(dbUser => {
-//             return bcrypt.compare(req.body.password, dbUser.user_password).then(result => {
-//                 if (!result) throw new Error("Bad password!");
+function login(req, res, next) {
+    getUser(req.body.email)
+        .then(dbUser => {
+            return bcrypt.compare(req.body.password, dbUser.user_password).then(result => {
+                if (!result) throw new Error("Bad password!");
 
-//                 const claims = {
-//                     user_id: dbUser.id,
-//                     admin: dbUser.adminusr || false
-//                 };
-//                 const token = jwt.sign(claims, secret, {
-//                     expiresIn: "24h"
-//                 });
-//                 res.send({
-//                     user_name: dbUser.username,
-//                     user_id: dbUser.id,
-//                     token: token
-//                 });
-//             });
-//         })
-//         .catch(next);
-// }
+                const claims = {
+                    user_id: dbUser.id,
+                    admin: dbUser.adminusr || false
+                };
+                const token = jwt.sign(claims, secret, {
+                    expiresIn: "24h"
+                });
+                res.send({
+                    user_name: dbUser.username,
+                    user_id: dbUser.id,
+                    token: token
+                });
+            });
+        })
+        .catch(next);
+}
 
 module.exports = {
-    signup
+    signup,
+    login
 };
