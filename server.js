@@ -3,7 +3,7 @@ const path = require("path");
 require("dotenv").config();
 const handleError = require("./middleware/error");
 const auth = require("./middleware/auth");
-const {getAllLinks, postLink, updateLink, removeLink} = require("./handlers/links-handlers");
+const {getAllLinks, postLink, removeLink, updateLink} = require("./handlers/links-handlers");
 const {signup, login} = require("./handlers/users-handlers");
 
 const PORT = process.env.PORT || 3000;
@@ -11,11 +11,12 @@ const server = express();
 server.use(express.json());
 
 server.get("/:userName", getAllLinks);
-server.post("user/create", signup);
-server.post("user/login", login);
-server.post("link/submit", auth, postLink);
+
+server.post("/signup", signup);
+server.post("/login", login);
+server.post("/link", auth, postLink);
 server.put("/link/update/:id", auth, updateLink);
-server.delete("/link/delete/:id", auth, removeLink);
+server.delete("/link/:id", auth, removeLink);
 
 server.use(express.static("public"));
 server.use((req, res, next) => {

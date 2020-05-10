@@ -1,4 +1,4 @@
-const model = require("../model/users-model");
+const {createUser, getUser} = require("../model/users-model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
@@ -29,8 +29,7 @@ function signup(req, res, next) {
                 username: newUserName,
                 password: cookedPassword
             };
-            model
-                .createUser(newUser)
+            createUser(newUser)
                 .then(userID => {
                     const token = jwt.sign(
                         {
@@ -55,16 +54,15 @@ function signup(req, res, next) {
                             "Could not sign up with those credentials, that email may already exist",
                         msg: err.message
                     });
-                });
-        })
-        .catch(next);
+                })
+                .catch(next);
+        });
 }
 // login function
 // IMPROVEMENTS
 // display error message if email or password are missing
 function login(req, res, next) {
-    model
-        .getUser(req.body.email)
+    getUser(req.body.email)
         .then(dbUser => {
             return bcrypt.compare(req.body.password, dbUser.user_password).then(result => {
                 if (!result) throw new Error("Bad password!");
