@@ -7,14 +7,11 @@ require("dotenv").config();
 const secret = process.env.SECRET;
 
 function signup(req, res, next) {
-    if (
-        req.body.email === undefined ||
-        req.body.username === undefined ||
-        req.body.password === undefined
-    ) {
+    if (!req.body.email || !req.body.username || !req.body.password) {
         const error = new Error("Missing parameter: email, username, password all required.");
         error.status = 400;
         next(error);
+        return;
     }
     const newUserEmail = req.body.email;
     const newUserName = req.body.username;

@@ -121,7 +121,7 @@ test("Can get a link by the id", t => {
         const linkId = 1;
         getLinkById(linkId)
             .then(res => {
-                t.equal(res.title, "bandcamp", "Correct title returned");
+                t.equal(res.title, "Recent Releases", "Correct title returned");
                 t.equal(res.owner_id, 2, "Correct owner ID returned");
                 t.equal(res.link, "www.bandcamp.com", "Correct owner link address returned");
                 t.end();
@@ -138,9 +138,13 @@ test("Can get all links by owner_id", t => {
         const id = 2;
         getAllLinksByUserId(2)
             .then(res => {
-                t.equal(res[0].title, "bandcamp", "Correct title returned");
+                t.equal(res[0].title, "Recent Releases", "Correct title returned");
                 t.equal(res[0].link, "www.bandcamp.com", "Correct link address returned");
-                t.equal(res[res.length - 1].title, "soundcloud", "Correct title returned");
+                t.equal(
+                    res[res.length - 1].title,
+                    "Rinse FM Appearances",
+                    "Correct title returned"
+                );
                 t.equal(
                     res[res.length - 1].link,
                     "www.soundcloud.com",
@@ -160,9 +164,13 @@ test("Can get all links by username", t => {
         const username = "James";
         getLinksByUsername(username)
             .then(res => {
-                t.equal(res[0].title, "bandcamp", "Correct first title returned");
+                t.equal(res[0].title, "Recent Releases", "Correct first title returned");
                 t.equal(res[0].link, "www.bandcamp.com", "Correct first link address returned");
-                t.equal(res[res.length - 1].title, "soundcloud", "Correct last title returned");
+                t.equal(
+                    res[res.length - 1].title,
+                    "Rinse FM Appearances",
+                    "Correct last title returned"
+                );
                 t.equal(
                     res[res.length - 1].link,
                     "www.soundcloud.com",
@@ -182,7 +190,9 @@ test("Can create a link entry", t => {
         const linkEntry = {
             title: "newLink",
             owner_id: 2,
-            link: "www.newEntry.com"
+            link: "www.newEntry.com",
+            description: "This is the latest Link",
+            emoji: "😎"
         };
         createLink(linkEntry)
             .then(res => {
@@ -190,6 +200,11 @@ test("Can create a link entry", t => {
                     t.equal(res.title, linkEntry.title, "Correct title returned");
                     t.equal(res.owner_id, linkEntry.owner_id, "Correct owner ID returned");
                     t.equal(res.link, linkEntry.link, "Correct owner link address returned");
+                    t.equal(
+                        res.description,
+                        linkEntry.description,
+                        "Correct owner link description returned"
+                    );
                     t.end();
                 });
             })
