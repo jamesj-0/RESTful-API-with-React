@@ -17,7 +17,7 @@ function getUserPrivilage(user_id) {
 function getLinksByUsername(username) {
     return db
         .query(
-            `SELECT users.username, links.id, links.owner_id, links.title, links.link FROM links INNER JOIN users ON users.id = links.owner_id
+            `SELECT users.username, links.id, links.owner_id, links.title, links.description, links.emoji, links.link FROM links INNER JOIN users ON users.id = links.owner_id
             WHERE users.username = ($1)`,
             [username]
         )
@@ -26,11 +26,10 @@ function getLinksByUsername(username) {
 
 function createLink(link) {
     return db
-        .query("INSERT INTO links(owner_id, link, title) VALUES($1, $2, $3) RETURNING id", [
-            link.owner_id,
-            link.link,
-            link.title
-        ])
+        .query(
+            "INSERT INTO links(owner_id, link, title, description, emoji) VALUES($1, $2, $3, $4, $5) RETURNING id",
+            [link.owner_id, link.link, link.title, link.description, link.emoji]
+        )
         .then(result => {
             return result.rows[0].id;
         })
@@ -67,15 +66,22 @@ function updateLinkbyID(linkId, newdata, owner_id) {
         return getLinkById(linkId).then(dbExample => {
             if (dbExample.owner_id === owner_id || admin === true) {
                 //check if user wrote the example
-                const vals = [newdata.title, newdata.link, linkId];
+                const vals = [
+                    newdata.title,
+                    newdata.link,
+                    newdata.description,
+                    newdata.emoji,
+                    linkId
+                ];
                 return (
                     db
                         .query(
-                            "UPDATE links SET title = COALESCE($1, title), link = COALESCE($2, link) WHERE id =($3) RETURNING *",
+                            "UPDATE links SET title = COALESCE($1, title), link = COALESCE($2, link), description = COALESCE($3, description), emoji = COALESCE($4, emoji) WHERE id =($5) RETURNING *",
                             vals
                         )
                         //COALESCE only updates where values are not null
                         .then(res => res.rows[0])
+                        .catch(err => console.log(err))
                 );
             } else {
                 const error = new Error("You do not own this example");

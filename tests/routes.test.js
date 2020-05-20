@@ -22,7 +22,11 @@ test("Test main route returns 200", t => {
                 t.error(err, "HTTP status is 200 and application/json; charset=utf-8");
                 t.equals(res.text.includes("James"), true, "James should be present");
                 t.equals(res.body.length, 3, "Request body should have 3 links");
-                t.equals(res.body[0].title, "bandcamp", "First link title should be bandcamp");
+                t.equals(
+                    res.body[0].title,
+                    "Recent Releases",
+                    "First link title should be bandcamp"
+                );
                 t.end();
             });
     });
