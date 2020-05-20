@@ -18,6 +18,8 @@ CREATE TABLE links
     owner_id INTEGER REFERENCES users(id),
     link VARCHAR(255),
     title TEXT NOT NULL,
+    description VARCHAR(255),
+    emoji TEXT,
     date TIMESTAMP
     WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
@@ -31,11 +33,11 @@ CREATE TABLE links
 
 
     INSERT INTO links
-        (owner_id, link, title)
+        (owner_id, link, title, description, emoji)
     VALUES
-        (2, 'www.bandcamp.com', 'bandcamp'),
-        (2, 'www.spotify.com', 'spotify'),
-        (2, 'www.soundcloud.com', 'soundcloud'),
-        (3, 'www.mixcloud.com', 'mixcloud');
+        (2, 'www.bandcamp.com', 'Recent Releases','bandcamp', '🆕' ),
+        (2, 'www.spotify.com', 'Spotify Artist Page','spotify', '📀'),
+        (2, 'www.soundcloud.com', 'Rinse FM Appearances', 'soundcloud', '🍻'),
+        (3, 'www.mixcloud.com', 'NTS', 'mixcloud', '🤩');
 
     COMMIT;
