@@ -11,7 +11,6 @@ function getAllLinks(req, res, next) {
         .catch(next);
 }
 
-// Inserts a new link into the links table and returns the inserted row's id
 function postLink(req, res, next) {
     req.body.user_id = req.user.id;
     req.body.admin = req.user.admin;
